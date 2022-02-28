@@ -14,3 +14,6 @@ def init_app(app: Flask):
     app.db = db
 
     # imports here
+    
+    from app.models.recipes_model import RecipesModel
+    
