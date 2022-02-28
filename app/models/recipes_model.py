@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from uuid import uuid4
 
 from app.configs.database import db
-from sqlalchemy import Boolean, Column, DateTime, String
+from sqlalchemy import Boolean, Column, DateTime, String, Time
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
 
 
@@ -33,7 +33,7 @@ class RecipesModel(db.Model):
     ingredients = Column(ARRAY(String), nullable=False)
     instructions = Column(ARRAY(String), nullable=False)
     public = Column(Boolean, default=False)
-    preparation_time = Column(DateTime, nullable=False)
+    preparation_time = Column(Time, nullable=False)
     difficulty = Column(
         ENUM("Fácil", "Intermediário", "Difícil", name="difficulty"), nullable=False
     )
