@@ -20,4 +20,5 @@ def init_app(app: Flask):
     from app.models.users_model import User
     from app.models.auths_model import Auth
     from app.models.user_private_recipes_model import UserPrivateRecipe
+    from app.models.favorite_recipes_model import FavoriteRecipe
 
