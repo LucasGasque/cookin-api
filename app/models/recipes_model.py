@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from uuid import uuid4
 
 from app.configs.database import db
-from sqlalchemy import Boolean, Column, DateTime, String, Time
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Time
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
 
 
@@ -37,7 +37,7 @@ class RecipesModel(db.Model):
     difficulty = Column(
         ENUM("Fácil", "Intermediário", "Difícil", name="difficulty"), nullable=False
     )
-    portion_size = Column(String(50), nullable=False)
+    portion_size = Column(Integer, nullable=False)
     image_url = Column(String)
     author = Column(String(100))
     created_at = Column(DateTime)
