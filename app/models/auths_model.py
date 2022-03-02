@@ -7,6 +7,7 @@ from sqlalchemy.orm import validates
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.configs.database import db
+from app.exc.invalid_email_error import InvalidEmailError
 
 
 @dataclass
@@ -32,4 +33,8 @@ class AuthModel(db.Model):
 
     @validates("email")
     def normalize_email(self, key, value):
-        return value.lower()
+        if "@" in value:
+            return value.lower()
+        raise InvalidEmailError(
+            description={"error": "e-mail should contain @ character"}
+        )
