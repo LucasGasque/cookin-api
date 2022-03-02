@@ -15,6 +15,6 @@ def init_app(app: Flask):
 
     # imports here
     
-    from app.models.recipes_model import RecipesModel
+    from app.models.recipes_model import Recipe
     
     from app.models.auths_model import Auth
