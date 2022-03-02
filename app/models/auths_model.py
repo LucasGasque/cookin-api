@@ -11,11 +11,12 @@ from app.configs.database import db
 
 @dataclass
 class AuthModel(db.Model):
+    email: str
 
     __tablename__ = "auths"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    email: str = Column(String(124), nullable=False, unique=True)
+    email = Column(String(124), nullable=False, unique=True)
     password_hash = Column(String(511), nullable=False)
 
     @property
