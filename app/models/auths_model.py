@@ -11,7 +11,7 @@ from app.exc.invalid_email_error import InvalidEmailError
 
 
 @dataclass
-class AuthModel(db.Model):
+class Auth(db.Model):
     email: str
 
     __tablename__ = "auths"
