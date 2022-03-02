@@ -4,10 +4,11 @@ from uuid import uuid4
 from app.configs.database import db
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Time
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
+from sqlalchemy.orm import validates
 
 
 @dataclass
-class RecipesModel(db.Model):
+class Recipe(db.Model):
 
     id: str
     title: str
@@ -42,3 +43,7 @@ class RecipesModel(db.Model):
     author = Column(String(100))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
+
+
+    
+        
