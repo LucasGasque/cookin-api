@@ -14,3 +14,4 @@ def init_app(app: Flask):
     app.db = db
 
     from app.models.auths_model import Auth
+    from app.models.users_model import User
