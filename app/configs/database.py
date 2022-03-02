@@ -13,5 +13,11 @@ def init_app(app: Flask):
     db.init_app(app)
     app.db = db
 
-    from app.models.auths_model import Auth
+
+    
+    # imports here
+    
+    from app.models.recipes_model import Recipe
     from app.models.users_model import User
+    from app.models.auths_model import Auth
+
