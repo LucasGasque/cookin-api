@@ -32,14 +32,14 @@ class Recipe(db.Model):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     title = Column(String(200), nullable=False)
     category = Column(
-        ENUM("Doce", "Salgado", "Bebida", name="category"), nullable=False
+        ENUM("Doce", "Salgado", "Bebida", name="Category"), nullable=False
     )
     ingredients = Column(ARRAY(String), nullable=False)
     instructions = Column(ARRAY(String), nullable=False)
     public = Column(Boolean, default=False)
     preparation_time = Column(Time, nullable=False)
     difficulty = Column(
-        ENUM("Fácil", "Intermediário", "Difícil", name="difficulty"), nullable=False
+        ENUM("Fácil", "Intermediário", "Difícil", name="Difficulty"), nullable=False
     )
     portion_size = Column(Integer, nullable=False)
     image_url = Column(String)
