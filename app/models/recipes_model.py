@@ -59,7 +59,7 @@ class Recipe(db.Model):
     
     
     @validates('difficulty')
-    def validade_difficulty(self, key, value):
+    def validate_difficulty(self, key, value):
         if value.lower() not in ["fácil", "intermediário", "difícil"]:
             raise DifficultyError(description={
                 "error": "Difficulty should be 'Fácil', 'Intermediário' or 'Difícil'."
