@@ -3,6 +3,7 @@ from flask import jsonify, request
 from http import HTTPStatus
 from werkzeug.exceptions import Unauthorized
 from flask_jwt_extended import create_access_token
+from datetime import timedelta
 
 from app.models.auths_model import Auth
 from app.models.users_model import User
@@ -27,9 +28,7 @@ def login_user():
             'error': f'Missing {err} key.'
         }, HTTPStatus.BAD_REQUEST
     
-    
-    
-    access_token = create_access_token(login_user)
+    access_token = create_access_token(login_user, expires_delta=timedelta(hours=24))
     
     return jsonify({
         "access_token": access_token
