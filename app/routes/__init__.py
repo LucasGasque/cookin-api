@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint
 from app.routes.auth_route import bp_auth
 
-from app.routes.recipes_blueprint import bp_recipes
-from app.routes.recipes_favorite_blueprint import bp_recipes_favorite
+from app.routes.recipes_route import bp_recipes
+from app.routes.recipes_favorite_route import bp_recipes_favorite
 
 bp_api = Blueprint("api", __name__, url_prefix="/api")
 
