@@ -11,12 +11,8 @@ def delete_user():
     user_in_auths: Auth = Auth.query.filter_by(
         email=user_authorized["email"]
     ).first()
-    auth_id = user_in_auths.id
-    user_in_users: User = User.query.filter_by(auth_id=auth_id).first()
-    name = user_in_users.name
     
     current_app.db.session.delete(user_in_auths)
-
     current_app.db.session.commit()
 
-    return {"msg": f"User {name} has been deleted."}, HTTPStatus.NO_CONTENT
+    return {}, HTTPStatus.NO_CONTENT
