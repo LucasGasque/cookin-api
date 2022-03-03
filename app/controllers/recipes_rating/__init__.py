@@ -1,1 +1,2 @@
 from .register_recipes_rating import register_recipes_rating
+from .update_recipes_rating import update_recipes_rating
