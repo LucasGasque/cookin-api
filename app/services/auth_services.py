@@ -1,6 +1,7 @@
 from app.exc.missing_valid_keys_error import MissingValidKeysError
 from app.exc.wrong_key_sent_error import WrongKeySentError
 
+
 def check_keys(keys):
     valid_keys = ["name", "email", "gender", "password", "profile_photo"]
     valid_keys_missing = []
@@ -15,8 +16,8 @@ def check_keys(keys):
     if len(valid_keys_missing) != 0:
         raise MissingValidKeysError(valid_keys, valid_keys_missing)
 
+
 def check_values_types(values):
     for value in values:
         if type(value) != str:
             raise AttributeError
-
