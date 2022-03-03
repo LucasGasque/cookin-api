@@ -39,20 +39,13 @@ def register_user():
         current_app.db.session.add(new_user_part_users)
         current_app.db.session.commit()
 
-        return_dict = {
-            "name": new_user_part_users.name,
-            "email": new_user_part_users.auth.email,
-            "gender": new_user_part_users.gender,
-            "profile_photo": new_user_part_users.profile_photo,
-        }
-
-        return jsonify(return_dict), HTTPStatus.CREATED
+        return {}, HTTPStatus.CREATED
 
     except AttributeError:
         if new_user_auth_found != None:
             current_app.db.session.delete(new_user_auth_found)
             current_app.db.session.commit()
-        return {"error": "all value types must be string"}
+        return {"error": "all value types must be string"}, HTTPStatus.BAD_REQUEST
 
     except DataError:
         current_app.db.session.rollback()
@@ -61,10 +54,10 @@ def register_user():
             current_app.db.session.commit()
         return {
             "error": "gender key only accepts values 'Masculino', 'Feminino' or 'Outro'"
-        }
+        }, HTTPStatus.BAD_REQUEST
 
     except IntegrityError:
-        return {"error": "e-mail already registered in database"}
+        return {"error": "e-mail already registered in database"}, HTTPStatus.CONFLICT
 
     except WrongKeySentError as e:
         if new_user_auth_found != None:
