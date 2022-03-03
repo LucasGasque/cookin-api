@@ -20,5 +20,5 @@ class User(db.Model):
 
     auth = db.relationship(
       "Auth",
-      backref=db.backref("user", uselist=False)
+      backref=db.backref("user", uselist=False, cascade="all,delete")
     )
