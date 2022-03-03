@@ -6,7 +6,6 @@ from app.routes.recipes_blueprint import bp_recipes
 from app.routes.recipes_favorite_blueprint import bp_recipes_favorite
 from app.routes.recipes_rating_route import bp_recipes_rating
 
-
 bp_api = Blueprint("api", __name__, url_prefix="/api")
 
 def init_app(app: Flask):
@@ -19,4 +18,3 @@ def init_app(app: Flask):
     bp_api.register_blueprint(bp_recipes_rating)
 
     app.register_blueprint(bp_api)
-    
