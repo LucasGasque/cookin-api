@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Time
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
-from sqlalchemy.orm import validates
+from sqlalchemy.orm import validates, relationship
 
 from app.configs.database import db
 from app.exc.category_error import CategoryError
@@ -47,7 +47,8 @@ class Recipe(db.Model):
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
-
+    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)
+    
     @validates('category')
     def validate_category(self, key, value):
         if value.lower() not in ["doce", "salgado", "bebida"]:
