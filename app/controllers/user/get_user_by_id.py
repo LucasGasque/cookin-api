@@ -2,10 +2,11 @@ from http import HTTPStatus
 
 from flask import jsonify
 from sqlalchemy.exc import DataError
+from flask_jwt_extended import jwt_required
 
 from app.models.users_model import User
 
-
+@jwt_required()
 def get_user_by_id(user_id: str):
     
     try:
