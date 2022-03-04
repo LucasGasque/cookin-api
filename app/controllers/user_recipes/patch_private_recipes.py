@@ -38,14 +38,14 @@ def update_recipe(recipe_id):
         for key, value in received_data.items():
             setattr(recipe_to_update, key, value)
 
+        recipe_to_update.updated_at = dt.now()
+
+        session.commit()
+
+        return "", HTTPStatus.NO_CONTENT
+    
     except NotFound as e:
         return jsonify(e.description), HTTPStatus.NOT_FOUND
     
     except BadRequest as e:
         return jsonify(e.description), HTTPStatus.BAD_REQUEST
-
-    recipe_to_update.updated_at = dt.now()
-
-    session.commit()
-
-    return "", HTTPStatus.NO_CONTENT
