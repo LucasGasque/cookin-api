@@ -8,6 +8,7 @@ from werkzeug.exceptions import NotFound
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
 
+
 @jwt_required()
 def delete_recipe(recipe_id: str):
     try:
@@ -17,7 +18,7 @@ def delete_recipe(recipe_id: str):
         filtered_recipe = Recipe.query.get_or_404(recipe_id)
 
         owner_of_searched_recipe = UserPrivateRecipe.query.filter_by(
-            recipe_id=recipe_id, auth_id=auth_id
+            recipe_id=recipe_id, user_id=auth_id
         ).one_or_none()
 
         if owner_of_searched_recipe:
@@ -33,4 +34,4 @@ def delete_recipe(recipe_id: str):
     except NotFound:
         return {"msg": "recipe not found"}, HTTPStatus.NOT_FOUND
     except DataError:
-        return {"msg": f"id sent is not uuid"}
+        return {"msg": f"id sent is not uuid"}, HTTPStatus.BAD_REQUEST
