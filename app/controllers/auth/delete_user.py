@@ -3,7 +3,7 @@ from http import HTTPStatus
 from flask import current_app
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
-from app.models.auths_model import Auth
+from app.models.auth_model import Auth
 
 
 @jwt_required()

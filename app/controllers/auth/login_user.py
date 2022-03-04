@@ -1,7 +1,7 @@
 from datetime import timedelta
 from http import HTTPStatus
 
-from app.models.auths_model import Auth
+from app.models.auth_model import Auth
 from flask import jsonify, request
 from flask_jwt_extended import create_access_token
 from werkzeug.exceptions import Unauthorized

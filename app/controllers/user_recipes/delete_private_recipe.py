@@ -5,7 +5,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy.exc import DataError
 from werkzeug.exceptions import NotFound
 
-from app.models.auths_model import Auth
+from app.models.auth_model import Auth
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
 

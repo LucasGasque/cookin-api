@@ -5,7 +5,7 @@ from sqlalchemy.exc import DataError, IntegrityError
 
 from app.exc.missing_valid_keys_error import MissingValidKeysError
 from app.exc.wrong_key_sent_error import WrongKeySentError
-from app.models.auths_model import Auth
+from app.models.auth_model import Auth
 from app.models.users_model import User
 from app.services.auth_services import check_keys, check_values_types
 
