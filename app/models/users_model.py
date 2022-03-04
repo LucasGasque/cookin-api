@@ -22,5 +22,3 @@ class User(db.Model):
       "Auth",
       backref=db.backref("user", uselist=False, cascade="all,delete")
     )
-    
-    private_recipe = db.relationship("Recipe", secondary='user_private_recipes', backref=db.backref("recipe", uselist=True))
