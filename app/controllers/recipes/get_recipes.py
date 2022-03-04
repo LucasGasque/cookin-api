@@ -36,7 +36,7 @@ def get_recipes():
 
         recipes = Recipe.query.paginate(page, per_page)
 
-        return jsonify(recipes), HTTPStatus.OK
+        return jsonify(recipes.items), HTTPStatus.OK
 
     except DataError as e:
         return jsonify(dict(error=' '.join(e.orig.pgerror.split()[:8]))), HTTPStatus.BAD_REQUEST
