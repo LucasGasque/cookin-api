@@ -2,30 +2,39 @@ from http import HTTPStatus
 
 from flask import jsonify, request
 
+from sqlalchemy import and_
 from sqlalchemy.exc import DataError
 
 from app.models.recipes_model import Recipe
 
 def get_recipes():
     try:
-        recipes = Recipe.query.all()
+        page = request.args.get("page", 1, type=int)
+        per_page = request.args.get("per_page", 10, type=int)
 
         category = request.args.get("category", None, type=str)
-        preparation_time = request.args.get("preparation_time", None, type=str)
+        preparation_time = request.args.get("preparation_time", None, type=float)
         difficulty = request.args.get("difficulty", None, type=str)
-        portion_size = request.args.get("portion_size", None, type=str)
+        portion_size = request.args.get("portion_size", None, type=int)
+
+        not_null_filters = []
 
         if category:
-            recipes = Recipe.query.filter_by(category=category).all()
+            not_null_filters.append(Recipe.category == category.title())
 
         if preparation_time:
-            recipes = Recipe.query.filter_by(preparation_time=preparation_time).all()
+            not_null_filters.append(Recipe.preparation_time <= preparation_time)
 
         if difficulty:
-            recipes = Recipe.query.filter_by(difficulty=difficulty).all()
+            not_null_filters.append(Recipe.difficulty == difficulty.title())
 
         if portion_size:
-            recipes = Recipe.query.filter_by(portion_size=portion_size).all()
+            not_null_filters.append(Recipe.portion_size <= portion_size)
+
+        if len(not_null_filters) > 0:
+            recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(page, per_page)
+
+        recipes = Recipe.query.paginate(page, per_page)
 
         return jsonify(recipes), HTTPStatus.OK
 
