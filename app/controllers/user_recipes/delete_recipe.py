@@ -32,7 +32,7 @@ def delete_recipe(recipe_id: str):
 
         current_app.db.session.delete(filtered_recipe)
         current_app.db.session.commit()
-        return {}, HTTPStatus.NO_CONTENT
+        return "", HTTPStatus.NO_CONTENT
 
     except NotFound:
         return {"msg": "recipe not found"}, HTTPStatus.NOT_FOUND
