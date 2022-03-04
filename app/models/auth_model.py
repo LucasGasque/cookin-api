@@ -31,10 +31,4 @@ class Auth(db.Model):
     def check_password(self, password_to_compare):
         return check_password_hash(self.password_hash, password_to_compare)
 
-    @validates("email")
-    def normalize_email(self, key, value):
-        if "@" in value:
-            return value.lower()
-        raise InvalidEmailError(
-            description={"error": "e-mail should contain @ character"}
-        )
+
