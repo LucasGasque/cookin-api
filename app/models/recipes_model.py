@@ -21,7 +21,7 @@ class Recipe(db.Model):
     public: bool
     preparation_time: str
     difficulty: str
-    portion_size: str
+    portion_size: int
     image_url: str
     author: str
     created_at: str
@@ -47,7 +47,7 @@ class Recipe(db.Model):
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
-    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)
+    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)    
     
     @validates('category')
     def validate_category(self, key, value):
