@@ -13,5 +13,6 @@ def get_user_by_id(user_id: str):
         user = User.query.filter_by(auth_id=user_id).one_or_none()
 
         return jsonify(user), HTTPStatus.OK
-    except DataError:
-        return {"error": f"user id {user_id} not found"}, HTTPStatus.NOT_FOUND
+    except DataError: 
+        return {"Error": f"user id {user_id} not found"}, HTTPStatus.NOT_FOUND
+       
