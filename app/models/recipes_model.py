@@ -3,11 +3,9 @@ from uuid import uuid4
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Time
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
-from sqlalchemy.orm import validates, relationship
+from sqlalchemy.orm import relationship
 
 from app.configs.database import db
-from app.exc.category_error import CategoryError
-from app.exc.difficulty_error import DifficultyError
 
 
 @dataclass
@@ -42,45 +40,10 @@ class Recipe(db.Model):
         ENUM("Fácil", "Intermediário", "Difícil", name="Difficulty"), nullable=False
     )
     portion_size = Column(Integer, nullable=False)
-    image_url = Column(String)
+    image_url = Column(String, default='https://i.ibb.co/1Rwkzqz/Mc-LGrrxni.jpg')
     author = Column(String(100))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
-    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)    
+    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)   
     
-    @validates('category')
-    def validate_category(self, key, value):
-        if value.lower() not in ["doce", "salgado", "bebida"]:
-            raise CategoryError(description={
-                "error": "Category should be 'Doce', 'Salgado' or 'Bebida'."
-            })
-        
-        return value.title()
-    
-    
-    @validates('difficulty')
-    def validate_difficulty(self, key, value):
-        if value.lower() not in ["fácil", "intermediário", "difícil"]:
-            raise DifficultyError(description={
-                "error": "Difficulty should be 'Fácil', 'Intermediário' or 'Difícil'."
-            })
-        
-        return value.title()
-    
-    
-    @validates('title', 'image_url')
-    def validate_value_type(self, key, value):
-        if type(value) != str:
-            raise TypeError('title and image_url should be string type')
-        
-        return value
-    
-    
-    @validates('portion_size')
-    def validate_portion_type(self, key, value):
-        if type(value) != int:
-            raise TypeError('portion_size must be int type') 
-        
-        return value 
-  
