@@ -1,4 +1,3 @@
-from email.policy import strict
 from marshmallow import Schema, ValidationError, fields, post_load, pre_load, validates
 from app.models.users_model import User
 
