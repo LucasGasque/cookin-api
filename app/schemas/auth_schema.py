@@ -3,7 +3,7 @@ from app.models.auth_model import Auth
 
 
 class AuthSchema(Schema):
-    email = fields.Email(required=True, strict=True)
+    email = fields.Email(required=True)
     password = fields.String(required=True)
 
     # @pre_load

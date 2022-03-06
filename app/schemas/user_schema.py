@@ -4,9 +4,9 @@ from app.models.users_model import User
 
 class UserSchema(Schema):
     auth_id = fields.UUID(required=True)
-    name = fields.String(required=True, strict=True)
-    gender = fields.String(required=True, strict=True)
-    profile_photo = fields.String(allow_none=True, strict=True)
+    name = fields.String(required=True)
+    gender = fields.String(required=True)
+    profile_photo = fields.String(allow_none=True)
 
     @pre_load
     def receive_data(self, data, **kwargs):
@@ -23,7 +23,5 @@ class UserSchema(Schema):
     @post_load
     def make_user(self, data, **kwargs):
         name = data.get("name")
-        profile_photo = data.get("profile_photo")
         data["name"] = name.title()
-        data["profile_photo"] = profile_photo.lower()
         return User(**data)
