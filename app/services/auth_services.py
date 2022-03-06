@@ -15,9 +15,3 @@ def check_keys(keys):
 
     if len(valid_keys_missing) != 0:
         raise MissingValidKeysError(valid_keys, valid_keys_missing)
-
-
-def check_values_types(values):
-    for value in values:
-        if type(value) != str:
-            raise AttributeError

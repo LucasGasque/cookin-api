@@ -1,16 +1,15 @@
 from http import HTTPStatus
 
-from flask import current_app, jsonify, request
+from flask import current_app, request
 from marshmallow import ValidationError
-from sqlalchemy.exc import DataError, IntegrityError
+from sqlalchemy.exc import IntegrityError
 
 from app.exc.missing_valid_keys_error import MissingValidKeysError
 from app.exc.wrong_key_sent_error import WrongKeySentError
 from app.models.auth_model import Auth
-from app.models.users_model import User
-from app.services.auth_services import check_keys, check_values_types
 from app.schemas.auth_schema import AuthSchema
 from app.schemas.user_schema import UserSchema
+from app.services.auth_services import check_keys
 
 
 def register_user():
@@ -19,13 +18,11 @@ def register_user():
         data = request.get_json()
         new_user_auth_found = None
         check_keys(data.keys())
-        # check_values_types(data.values())
 
-        name = data.pop("name", None).title()
-        gender = data.pop("gender", None).title()
+        name = data.pop("name", None)
+        gender = data.pop("gender", None)
         profile_photo = data.pop("profile_photo", None)
 
-        # new_user_auth_table = Auth(**data)
         new_user_auth_table = AuthSchema().load(data)
 
         current_app.db.session.add(new_user_auth_table)
@@ -35,10 +32,13 @@ def register_user():
         ).first()
         auth_id = new_user_auth_found.id
 
-        # new_user_part_users = User(
-        #     name=name, gender=gender, profile_photo=profile_photo, auth_id=auth_id
-        # )
-        new_user_part_users = UserSchema().load(name=name, gender=gender, profile_photo=profile_photo, auth_id=auth_id
+        new_user_part_users = UserSchema().load(
+            {
+                "name": name,
+                "gender": gender,
+                "profile_photo": profile_photo,
+                "auth_id": auth_id,
+            }
         )
 
         current_app.db.session.add(new_user_part_users)
@@ -48,14 +48,6 @@ def register_user():
 
     except ValidationError as e:
         return {"Error": e.args}, HTTPStatus.BAD_REQUEST
-
-    except AttributeError:
-        return {"error": "all value types must be string"}, HTTPStatus.BAD_REQUEST
-
-    except DataError:
-        return {
-            "error": "gender key only accepts values 'Masculino', 'Feminino' or 'Outro'"
-        }, HTTPStatus.BAD_REQUEST
 
     except IntegrityError:
         return {"error": "e-mail already registered in database"}, HTTPStatus.CONFLICT
