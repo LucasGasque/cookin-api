@@ -10,6 +10,7 @@ from app.models.auth_model import Auth
 from app.models.users_model import User
 from app.services.auth_services import check_keys, check_values_types
 from app.schemas.auth_schema import AuthSchema
+from app.schemas.user_schema import UserSchema
 
 
 def register_user():
@@ -18,7 +19,7 @@ def register_user():
         data = request.get_json()
         new_user_auth_found = None
         check_keys(data.keys())
-        check_values_types(data.values())
+        # check_values_types(data.values())
 
         name = data.pop("name", None).title()
         gender = data.pop("gender", None).title()
@@ -34,8 +35,10 @@ def register_user():
         ).first()
         auth_id = new_user_auth_found.id
 
-        new_user_part_users = User(
-            name=name, gender=gender, profile_photo=profile_photo, auth_id=auth_id
+        # new_user_part_users = User(
+        #     name=name, gender=gender, profile_photo=profile_photo, auth_id=auth_id
+        # )
+        new_user_part_users = UserSchema().load(name=name, gender=gender, profile_photo=profile_photo, auth_id=auth_id
         )
 
         current_app.db.session.add(new_user_part_users)
