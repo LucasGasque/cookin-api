@@ -6,7 +6,7 @@ class UserSchema(Schema):
     auth_id = fields.UUID(required=True)
     name = fields.String(required=True)
     gender = fields.String(required=True)
-    profile_photo = fields.String(allow_none=True)
+    profile_photo = fields.Url(allow_none=True)
 
     @pre_load
     def receive_data(self, data, **kwargs):
