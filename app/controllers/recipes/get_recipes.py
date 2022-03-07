@@ -21,7 +21,7 @@ def get_recipes():
         portion_size = request.args.get("portion_size", None, type=int)
 
         data = {}
-        
+
         data['page'] = page
         data['per_page'] = per_page
         data['category'] = category
