@@ -50,10 +50,10 @@ def register_user():
         return {"Error": e.args}, HTTPStatus.BAD_REQUEST
 
     except IntegrityError:
-        return {"error": "e-mail already registered in database"}, HTTPStatus.CONFLICT
+        return {"Error": "e-mail already registered in database"}, HTTPStatus.CONFLICT
 
     except WrongKeySentError as e:
-        return e.message
+        return {"Error:": e.args}, HTTPStatus.BAD_REQUEST
 
     except MissingValidKeysError as e:
-        return e.message
+        return {"Error": e.args}, HTTPStatus.BAD_REQUEST
