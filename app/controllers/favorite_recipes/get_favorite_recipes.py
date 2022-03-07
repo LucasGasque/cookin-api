@@ -1,12 +1,14 @@
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy.orm.session import Session
+from http import HTTPStatus
+
 from flask import jsonify
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from sqlalchemy.orm.session import Session
 
 from app.configs.database import db
-from app.models.recipes_model import Recipe
 from app.models.favorite_recipes_model import FavoriteRecipe
+from app.models.recipes_model import Recipe
 from app.schemas.favorite_recipes import GetFavoriteRecipesSchema
-from http import HTTPStatus
+
 
 @jwt_required()
 def get_favorite_recipes():
@@ -18,14 +20,12 @@ def get_favorite_recipes():
 
     array_of_user_favorites = []
 
-    recipes_list = session.query(FavoriteRecipe).filter_by(
-            user_id=auth_id
-        ).all()
+    recipes_list = session.query(FavoriteRecipe).filter_by(user_id=auth_id).all()
 
     for item in recipes_list:
-        recipe_found_in_recipes = session.query(Recipe).filter_by(
-                id=item.recipe_id
-            ).first()
+        recipe_found_in_recipes = (
+            session.query(Recipe).filter_by(id=item.recipe_id).first()
+        )
         if recipe_found_in_recipes.public == True:
             array_of_user_favorites.append(recipe_found_in_recipes)
 
