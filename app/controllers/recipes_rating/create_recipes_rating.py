@@ -1,24 +1,24 @@
 from http import HTTPStatus
+from sqlalchemy.exc import IntegrityError
 
 from flask import current_app, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from marshmallow import ValidationError
 from werkzeug.exceptions import NotFound
 
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
-from app.schemas.recipe_rate_schema import RecipeRateSchema
-from app.utils.is_uuid import is_uuid
+from app.schemas.recipes_rating.register_recipes_rating_schema import RecipeRateSchema
 
 
 @jwt_required()
-def register_recipes_rating(recipe_id: str):
+def create_recipes_rating(recipe_id: str):
 
-    # if not is_uuid(recipe_id):
-    #     return {"Error": f"id:{recipe_id} sent is not uuid"}, HTTPStatus.BAD_REQUEST
 
     try:
 
         user_authorized = get_jwt_identity()
+        print(user_authorized)
         auth_id = user_authorized["id"]
 
         Recipe.query.get_or_404(recipe_id)
@@ -34,7 +34,7 @@ def register_recipes_rating(recipe_id: str):
 
         data = request.get_json()
 
-        data["user_id"] = user_authorized
+        data["user_id"] = auth_id
         data["recipe_id"] = recipe_id
 
         recipe_rated = RecipeRateSchema().load(data)
@@ -46,3 +46,9 @@ def register_recipes_rating(recipe_id: str):
 
     except NotFound:
         return {"Error": "recipe not found"}, HTTPStatus.NOT_FOUND
+
+    except ValidationError as e:
+        return {"Error": e.args}, HTTPStatus.BAD_REQUEST
+
+    except IntegrityError:
+        return {"Error": "You already rated this recipe"}, HTTPStatus.BAD_REQUEST
