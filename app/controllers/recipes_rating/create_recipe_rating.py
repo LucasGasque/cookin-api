@@ -16,7 +16,6 @@ def create_recipe_rating(recipe_id: str):
 
     try:
         user_authorized = get_jwt_identity()
-        print(user_authorized)
         auth_id = user_authorized["id"]
 
         Recipe.query.get_or_404(recipe_id)
