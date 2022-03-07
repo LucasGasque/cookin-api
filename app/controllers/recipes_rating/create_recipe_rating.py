@@ -7,7 +7,7 @@ from marshmallow import ValidationError
 
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
-from app.schemas.recipes_rating.register_recipes_rating_schema import RecipeRateSchema
+from app.schemas.recipes_rating.create_recipe_rating_schema import RecipeRateSchema
 
 
 @jwt_required()
