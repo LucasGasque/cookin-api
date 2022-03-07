@@ -1,3 +1,3 @@
 from .add_to_favorite_recipe import favorite_recipe
-from .delete_recipe_favorite import delete_favorite_recipe
+from .delete_from_favorite_recipe import delete_favorite_recipe
 from .get_favorite_recipe import get_favorite_recipe
