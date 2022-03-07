@@ -13,8 +13,8 @@ from app.utils.is_uuid import is_uuid
 @jwt_required()
 def register_recipes_rating(recipe_id: str):
 
-    if not is_uuid(recipe_id):
-        return {"Error": f"id:{recipe_id} sent is not uuid"}, HTTPStatus.BAD_REQUEST
+    # if not is_uuid(recipe_id):
+    #     return {"Error": f"id:{recipe_id} sent is not uuid"}, HTTPStatus.BAD_REQUEST
 
     try:
 
