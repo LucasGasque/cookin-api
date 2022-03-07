@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required
 from app.models.recipes_model import Recipe
 
 @jwt_required
-def get_recipe_by_id(recipe_id: str):
+def get_private_recipe_by_id(recipe_id: str):
     try:
         recipe = Recipe.query.filter_by(id=recipe_id).one_or_none()
         return jsonify(recipe), HTTPStatus.OK
