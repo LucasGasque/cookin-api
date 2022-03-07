@@ -1,1 +1,1 @@
-from .get_recipes import get_recipes
+from .get_public_recipes import get_public_recipes

@@ -6,15 +6,10 @@ from werkzeug.exceptions import NotFound
 
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
-from app.utils.is_uuid import is_uuid
 
 
 @jwt_required()
-def delete_recipe(recipe_id: str):
-
-    if not is_uuid(recipe_id):
-        return {"msg": f"id sent is not uuid"}, HTTPStatus.BAD_REQUEST
-
+def delete_private_recipe(recipe_id: str):
     try:
         user = get_jwt_identity()
         auth_id = user["id"]
