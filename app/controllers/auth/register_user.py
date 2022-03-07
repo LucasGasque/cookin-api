@@ -7,8 +7,8 @@ from sqlalchemy.exc import IntegrityError
 from app.exc.missing_valid_keys_error import MissingValidKeysError
 from app.exc.wrong_key_sent_error import WrongKeySentError
 from app.models.auth_model import Auth
-from app.schemas.auth_schema import AuthSchema
-from app.schemas.user_schema import UserSchema
+from app.schemas.auth.auth_schema import AuthSchema
+from app.schemas.user.user_schema import UserSchema
 from app.services.auth_services import check_keys
 
 
