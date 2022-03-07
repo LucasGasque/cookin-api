@@ -3,10 +3,9 @@ from http import HTTPStatus
 from app.configs.database import db
 from app.schemas.favorite_recipes.add_to_favorte_recipe_schema import \
     AddToFavoriteRecipeSchema
-from flask import current_app, jsonify
+from flask import jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow.exceptions import ValidationError
-from psycopg2.errors import UniqueViolation
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.session import Session
 
@@ -15,7 +14,7 @@ from sqlalchemy.orm.session import Session
 def favorite_recipe(recipe_id):
 
     try:
-        session: Session = current_app.db.session
+        session: Session = db.session
         user_id = get_jwt_identity()["id"]
 
         data = {"user_id": user_id, "recipe_id": recipe_id}
@@ -30,8 +29,7 @@ def favorite_recipe(recipe_id):
             HTTPStatus.CREATED,
         )
 
-    except IntegrityError as error:
-        if isinstance(error.orig, UniqueViolation):
+    except IntegrityError as error:        
             return (
                 jsonify({"Error": "Recipe already in favorites"}),
                 HTTPStatus.CONFLICT,
