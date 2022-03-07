@@ -6,7 +6,7 @@ class LoginUserSchema(Schema):
     password = fields.String(required=True)
 
     @post_load
-    def make_auth(self, data, **kwargs):
+    def validate_auth(self, data, **kwargs):
         email = data.get("email")
         data["email"] = email.lower()
         return data
