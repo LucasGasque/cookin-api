@@ -1,14 +1,15 @@
 from http import HTTPStatus
 
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from marshmallow import ValidationError
+from sqlalchemy.orm.session import Session
 from werkzeug.exceptions import NotFound
 
+from app.configs.database import db
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
 from app.schemas.user_recipes import ShareRecipeSchema
-from marshmallow import ValidationError
-from app.configs.database import db
-from sqlalchemy.orm.session import Session
+
 
 @jwt_required()
 def update_share(recipe_id: str):
@@ -29,7 +30,7 @@ def update_share(recipe_id: str):
             return {
                 "Error": "You are not allowed to share/unshare this recipe"
             }, HTTPStatus.BAD_REQUEST
-        
+
         new_state_of_sharing = not filtered_recipe.public
         filtered_recipe.public = new_state_of_sharing
 
@@ -42,6 +43,6 @@ def update_share(recipe_id: str):
 
     except NotFound:
         return {"Error": "Recipe not found"}, HTTPStatus.NOT_FOUND
-    
+
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
