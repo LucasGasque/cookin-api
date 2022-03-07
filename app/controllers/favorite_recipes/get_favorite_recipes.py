@@ -2,13 +2,13 @@ from http import HTTPStatus
 
 from flask import jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from marshmallow import ValidationError
 from sqlalchemy.orm.session import Session
 
 from app.configs.database import db
 from app.models.favorite_recipes_model import FavoriteRecipe
 from app.models.recipes_model import Recipe
 from app.schemas.favorite_recipes import GetFavoriteRecipesSchema
-from marshmallow import ValidationError
 
 
 @jwt_required()
@@ -32,6 +32,6 @@ def get_favorite_recipes():
                 array_of_user_favorites.append(recipe_found_in_recipes)
 
         return jsonify(array_of_user_favorites), HTTPStatus.OK
-    
+
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
