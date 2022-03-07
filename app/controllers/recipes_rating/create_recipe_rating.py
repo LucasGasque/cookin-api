@@ -4,7 +4,6 @@ from sqlalchemy.exc import IntegrityError, DataError
 from flask import current_app, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
-from werkzeug.exceptions import NotFound
 
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
@@ -16,7 +15,6 @@ def create_recipe_rating(recipe_id: str):
 
 
     try:
-
         user_authorized = get_jwt_identity()
         print(user_authorized)
         auth_id = user_authorized["id"]
