@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields, post_load
 
 
-class AuthSchema(Schema):
+class LoginUserSchema(Schema):
     email = fields.Email(required=True)
     password = fields.String(required=True)
 
