@@ -8,7 +8,6 @@ from app.models.auth_model import Auth
 
 @jwt_required()
 def update_user():
-
     session: Session = current_app.db.session
     received_data = request.get_json()
 
