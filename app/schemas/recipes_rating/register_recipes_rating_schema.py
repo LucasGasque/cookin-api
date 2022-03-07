@@ -1,5 +1,3 @@
-from http import HTTPStatus
-from http.client import BAD_REQUEST
 from marshmallow import Schema, ValidationError, fields, post_load, validates
 
 from app.models.recipes_rating_model import RecipesRating
