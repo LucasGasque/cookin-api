@@ -4,7 +4,7 @@ from app.utils.category_enum_type import CategoryEnumType
 from app.utils.difficulty_enum_type import DifficultyEnumType
 
 
-class GetPublicRecepisSchema(Schema):
+class GetPublicRecipesSchema(Schema):
     page = fields.Integer(required=True)
     per_page = fields.Integer(required=True)
     category = EnumField(CategoryEnumType, allow_none=True)

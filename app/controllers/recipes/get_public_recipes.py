@@ -7,7 +7,7 @@ from sqlalchemy.exc import DataError
 from marshmallow import ValidationError
 
 from app.models.recipes_model import Recipe
-from app.schemas.recipes import GetPublicRecepisSchema
+from app.schemas.recipes import GetPublicRecipesSchema
 
 
 def get_public_recipes():
@@ -29,7 +29,7 @@ def get_public_recipes():
         data["difficulty"] = difficulty
         data["portion_size"] = portion_size
 
-        GetPublicRecepisSchema().load(data)
+        GetPublicRecipesSchema().load(data)
         not_null_filters = [Recipe.public is True]
 
         if category:

@@ -17,4 +17,4 @@ def delete_user():
     session.delete(user_in_auth)
     db.session.commit()
 
-    return {}, HTTPStatus.NO_CONTENT
+    return "", HTTPStatus.NO_CONTENT
