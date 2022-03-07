@@ -3,16 +3,25 @@ from http import HTTPStatus
 from flask import jsonify, request
 from flask_jwt_extended import create_access_token
 from werkzeug.exceptions import Unauthorized
+from marshmallow import ValidationError
+from sqlalchemy.orm.exc import NoResultFound
+
 
 from app.models.auth_model import Auth
+from app.schemas.auth import LoginUserSchema
 
 
 def login_user():
     try:
-        data_received = request.get_json()
+        data_recivied = request.get_json()
+        data = LoginUserSchema().load(data_recivied)
 
-        login_user: Auth = Auth.query.filter_by(email=data_received["email"]).first()
-        if not login_user.check_password(data_received["password"]):
+        login_user: Auth = Auth.query.filter_by(email=data["email"]).first()
+
+        if not login_user:
+            raise NoResultFound
+
+        if not login_user.check_password(data["password"]):
             raise Unauthorized
 
         access_token = create_access_token(
@@ -31,8 +40,11 @@ def login_user():
             HTTPStatus.OK,
         )
 
-    except Unauthorized:
-        return {"error": "email and password missmatch"}, HTTPStatus.UNAUTHORIZED
+    except ValidationError as error:
+        return {"Error": error.args}, HTTPStatus.BAD_REQUEST
 
-    except KeyError as error:
-        return {"error": f"Missing {error} key."}, HTTPStatus.BAD_REQUEST
+    except NoResultFound:
+        return {"Error": "Email and password missmatch"}, HTTPStatus.UNAUTHORIZED
+
+    except Unauthorized:
+        return {"Error": "Email and password missmatch"}, HTTPStatus.UNAUTHORIZED

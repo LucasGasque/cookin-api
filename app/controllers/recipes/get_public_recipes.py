@@ -1,10 +1,10 @@
 from http import HTTPStatus
-
 from flask import jsonify, request
-
 from sqlalchemy import and_
 from sqlalchemy.exc import DataError
 from marshmallow import ValidationError
+from sqlalchemy.orm.exc import NoResultFound
+
 
 from app.models.recipes_model import Recipe
 from app.schemas.recipes import GetPublicRecipesSchema
@@ -46,10 +46,16 @@ def get_public_recipes():
 
         recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(page, per_page)
 
+        if not recipes:
+            raise NoResultFound
+
         return jsonify(recipes.items), HTTPStatus.OK
 
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
+
+    except NoResultFound:
+        return {"Error": "No recipes found"}, HTTPStatus.NOT_FOUND
 
     except DataError as error:
         return (

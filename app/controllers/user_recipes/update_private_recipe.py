@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 from app.configs.database import db
 from app.models.recipes_model import Recipe
-from flask import current_app, jsonify, request
+from flask import jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy.orm.session import Session
 from werkzeug.exceptions import NotFound, BadRequest
@@ -26,12 +26,14 @@ def update_private_recipe(recipe_id):
             )
 
         recipe_to_update: Recipe = Recipe.query.get(recipe_id)
+
+        session: Session = db.session
+
         for key, value in received_data.items():
             setattr(recipe_to_update, key, value)
 
         recipe_to_update.updated_at = dt.now()
 
-        session: Session = current_app.db.session
         session.commit()
 
         return "", HTTPStatus.NO_CONTENT
