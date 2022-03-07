@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from uuid import uuid4
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Time
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
 from sqlalchemy.orm import relationship
 
@@ -17,7 +17,7 @@ class Recipe(db.Model):
     ingredients: list
     instructions: list
     public: bool
-    preparation_time: str
+    preparation_time: int
     difficulty: str
     portion_size: int
     image_url: str
@@ -35,7 +35,7 @@ class Recipe(db.Model):
     ingredients = Column(ARRAY(String), nullable=False)
     instructions = Column(ARRAY(String), nullable=False)
     public = Column(Boolean, default=False)
-    preparation_time = Column(Time, nullable=False)
+    preparation_time = Column(Integer, nullable=False)
     difficulty = Column(
         ENUM("Fácil", "Intermediário", "Difícil", name="Difficulty"), nullable=False
     )
