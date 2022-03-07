@@ -12,7 +12,7 @@ from app.schemas.recipes_rating.register_recipes_rating_schema import RecipeRate
 
 
 @jwt_required()
-def create_recipes_rating(recipe_id: str):
+def create_recipe_rating(recipe_id: str):
 
 
     try:

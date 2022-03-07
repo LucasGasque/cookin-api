@@ -1,3 +1,3 @@
-from .create_recipes_rating import create_recipes_rating
+from .create_recipe_rating import create_recipe_rating
 from .update_recipes_rating import update_recipes_rating
 from .delete_recipes_rating import delete_recipes_rating
