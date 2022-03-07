@@ -44,7 +44,7 @@ def login_user():
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
 
     except NoResultFound:
-        return {"Error": "User not found"}, HTTPStatus.NOT_FOUND
+        return {"Error": "Email and password missmatch"}, HTTPStatus.UNAUTHORIZED
 
     except Unauthorized:
         return {"Error": "Email and password missmatch"}, HTTPStatus.UNAUTHORIZED
