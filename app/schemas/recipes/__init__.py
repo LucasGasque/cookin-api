@@ -1,2 +1,2 @@
-from .get_recipes_schema import GetRecepisSchema
+from .get_public_recipes_schema import GetPublicRecepisSchema
 from .recipe_schema import RecipeSchema

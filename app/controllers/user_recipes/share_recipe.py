@@ -1,2 +1,2 @@
-def share_recipe(recipe_id: str):
+def update_share(recipe_id: str):
     ...
