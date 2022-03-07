@@ -1,5 +1,0 @@
-
-
-
-def favorite_recipe():
-    ...
