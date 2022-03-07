@@ -2,15 +2,19 @@
 from http import HTTPStatus
 
 from flask import current_app
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from marshmallow import ValidationError
+from sqlalchemy.exc import DataError
+
+from app.models.recipes_model import Recipe
 from app.models.recipes_rating_model import RecipesRating
 from app.models.user_private_recipes_model import UserPrivateRecipe
-from app.models.recipes_model import Recipe
+from app.schemas.recipes_rating.delete_recipes_rating_schema import \
+    RatingRecipeDeleteSchema
 
-from flask_jwt_extended import get_jwt_identity, jwt_required
-# from app.schemas.recipes_rating.create_recipe_rating_schema import RecipeRateSchema
 
 @jwt_required
-def delete_recipes_rating(recipe_id):
+def delete_recipes_rating(recipe_id: str):
 
     try:
 
@@ -28,9 +32,9 @@ def delete_recipes_rating(recipe_id):
                     "Error": "you are not allowed to delete this recipe rate"
                 }, HTTPStatus.BAD_REQUEST
 
-        
+        RatingRecipeDeleteSchema().load({"recipe_id": recipe_id, "auth_id": auth_id})
 
-        recipe_rate_to_be_deleted = RecipesRating.query.filter_by(
+        recipe_rate_to_be_deleted: RecipesRating = RecipesRating.query.filter_by(
                 recipe_id=recipe_id, user_id=auth_id
             ).one_or_none()
 
@@ -39,9 +43,8 @@ def delete_recipes_rating(recipe_id):
 
         return "", HTTPStatus.NO_CONTENT
 
-        #tem schema ne? 
+    except ValidationError as error:
+        return {"Error": error.args}, HTTPStatus.BAD_REQUEST
 
-    except:
-        ...
-
-    
+    except DataError:
+        return {"Error": "recipe not found"}, HTTPStatus.NOT_FOUND
