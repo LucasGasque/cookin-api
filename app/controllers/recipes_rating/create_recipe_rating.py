@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, DataError
 
 from flask import current_app, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -44,7 +44,7 @@ def create_recipe_rating(recipe_id: str):
 
         return "", HTTPStatus.NO_CONTENT
 
-    except NotFound:
+    except DataError:
         return {"Error": "recipe not found"}, HTTPStatus.NOT_FOUND
 
     except ValidationError as e:
