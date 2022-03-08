@@ -1,5 +1,8 @@
 from http import HTTPStatus
+from pytest import Session
 from sqlalchemy.exc import IntegrityError, DataError
+from sqlalchemy.orm import Session
+from app.configs.database import db
 
 from flask import current_app, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -34,8 +37,9 @@ def create_recipe_rating(recipe_id: str):
 
         recipe_rated = RecipeRateSchema().load(data)
 
-        current_app.db.session.add(recipe_rated)
-        current_app.db.session.commit()
+        session: Session = db.session
+        session.add(recipe_rated)
+        db.session.commit()
 
         return "", HTTPStatus.NO_CONTENT
 
