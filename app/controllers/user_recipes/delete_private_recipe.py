@@ -2,13 +2,12 @@ from http import HTTPStatus
 
 from flask import current_app
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from marshmallow import ValidationError
 from werkzeug.exceptions import NotFound
 
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
-
 from app.schemas.user_recipes import DeletePrivateRecipeSchema
-from marshmallow import ValidationError
 
 
 @jwt_required()
@@ -36,6 +35,6 @@ def delete_private_recipe(recipe_id: str):
 
     except NotFound:
         return {"Error": "Recipe not found"}, HTTPStatus.NOT_FOUND
-        
+
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
