@@ -1,9 +1,7 @@
-from marshmallow import Schema, fields, post_load, validate
-
-from app.models.users_model import User
+from marshmallow import Schema, fields, validate
 
 
-class UserSchema(Schema):
+class UpdateUserSchema(Schema):
     auth_id = fields.UUID(required=True)
     name = fields.String(required=True)
     gender = fields.String(
@@ -17,9 +15,3 @@ class UserSchema(Schema):
         ),
     )
     profile_photo = fields.Url(allow_none=True)
-
-    @post_load
-    def make_user(self, data, **kwargs):
-        name = data.get("name")
-        data["name"] = name.title()
-        return User(**data)

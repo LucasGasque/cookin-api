@@ -3,18 +3,14 @@ from uuid import uuid4
 
 from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import validates
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.configs.database import db
-from app.exc.invalid_email_error import InvalidEmailError
 
 
 @dataclass
 class Auth(db.Model):
-    
     id: str
-    email: str
 
     __tablename__ = "auths"
 
@@ -32,5 +28,3 @@ class Auth(db.Model):
 
     def check_password(self, password_to_compare):
         return check_password_hash(self.password_hash, password_to_compare)
-
-
