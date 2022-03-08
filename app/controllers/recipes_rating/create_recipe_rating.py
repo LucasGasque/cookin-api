@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError, DataError
 from sqlalchemy.orm import Session
 from app.configs.database import db
 
-from flask import current_app, request
+from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
 
