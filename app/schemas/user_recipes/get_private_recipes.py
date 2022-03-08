@@ -1,13 +1,16 @@
-from marshmallow import Schema, fields
-from marshmallow_enum import EnumField
-from app.utils.category_enum_type import CategoryEnumType
-from app.utils.difficulty_enum_type import DifficultyEnumType
+from marshmallow import Schema, fields, validate
 
 
-class GetPublicRecipesSchema(Schema):
+class GetPrivateRecipesSchema(Schema):
     page = fields.Integer(required=True)
     per_page = fields.Integer(required=True)
-    category = EnumField(CategoryEnumType, allow_none=True)
+    title = fields.String(allow_none=True)
+    category = fields.String(
+        allow_none=True, validate=validate.OneOf(["Doce", "Salgado", "Bebida"])
+    )
     preparation_time = fields.Integer(allow_none=True)
-    difficulty = EnumField(DifficultyEnumType, allow_none=True)
+    difficulty = fields.String(
+        allow_none=True, validate=validate.OneOf(["Fácil", "Intermediário", "Difícil"])
+    )
     portion_size = fields.Integer(allow_none=True)
+    auth_id = fields.UUID(required=True)

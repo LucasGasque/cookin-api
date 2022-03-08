@@ -1,11 +1,25 @@
 from app.configs.database import db
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, ForeignKey
+from sqlalchemy.orm import relationship
+
+from app.models.recipes_model import Recipe
 
 
 class UserPrivateRecipe(db.Model):
+    recipe = Recipe
 
     __tablename__ = "user_private_recipes"
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.auth_id', ondelete="CASCADE"), primary_key=True, nullable=False)
-    recipe_id = Column(UUID(as_uuid=True), ForeignKey('recipes.id', ondelete="CASCADE"), primary_key=True, nullable=False)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.auth_id", ondelete="CASCADE"),
+        primary_key=True,
+        nullable=False,
+    )
+    recipe_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("recipes.id", ondelete="CASCADE"),
+        primary_key=True,
+        nullable=False,
+    )
