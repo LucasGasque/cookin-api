@@ -10,8 +10,6 @@ from app.models.favorite_recipes_model import FavoriteRecipe
 from app.models.recipes_model import Recipe
 from app.schemas.favorite_recipes import GetFavoriteRecipesSchema
 
-from sqlalchemy.orm import load_only
-
 
 @jwt_required()
 def get_favorite_recipes():
@@ -22,20 +20,17 @@ def get_favorite_recipes():
 
         GetFavoriteRecipesSchema().load({"auth_id": auth_id})
 
-        array_of_user_favorites = []
-
         recipes_list = session.query(FavoriteRecipe).filter_by(user_id=auth_id).all()
 
-        for item in recipes_list:
-            recipe_found_in_recipes = (
-                session.query(Recipe).filter_by(id=item.recipe_id).first()
-            )
-            if recipe_found_in_recipes.public == True:
-                array_of_user_favorites.append(recipe_found_in_recipes)
-        
-        print("!"*100, *recipes_list)
+        recipes_ids_list = [item.recipe_id for item in recipes_list]
 
-        return jsonify(array_of_user_favorites), HTTPStatus.OK
+        favorites_list = (
+            session.query(Recipe).filter(Recipe.id.in_(recipes_ids_list)).all()
+        )
+
+        favorites_public_list = [item for item in favorites_list if item.public == True]
+
+        return jsonify(favorites_public_list), HTTPStatus.OK
 
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
