@@ -10,6 +10,8 @@ from app.models.favorite_recipes_model import FavoriteRecipe
 from app.models.recipes_model import Recipe
 from app.schemas.favorite_recipes import GetFavoriteRecipesSchema
 
+from sqlalchemy.orm import load_only
+
 
 @jwt_required()
 def get_favorite_recipes():
@@ -30,6 +32,8 @@ def get_favorite_recipes():
             )
             if recipe_found_in_recipes.public == True:
                 array_of_user_favorites.append(recipe_found_in_recipes)
+        
+        print("!"*100, *recipes_list)
 
         return jsonify(array_of_user_favorites), HTTPStatus.OK
 
