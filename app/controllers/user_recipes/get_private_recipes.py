@@ -56,15 +56,12 @@ def get_private_recipes():
         if portion_size:
             not_null_filters.append(Recipe.portion_size <= portion_size)
 
-        session: Session = db.session
+        ids = UserPrivateRecipe.query.filter_by(user_id=auth_id).all()
 
         recipes = (
-            session.query(UserPrivateRecipe, Recipe)
-            .filter(UserPrivateRecipe.user_id == auth_id)
-            .filter(and_(*not_null_filters))
-            .limit(per_page)
-            .offset(page)
-            .all()
+            Recipe.query.filter(and_(*not_null_filters))
+            .filter(Recipe.id.in_([id.recipe_id for id in ids]))
+            .paginate(page, per_page)
         )
 
         if not recipes:
@@ -72,7 +69,7 @@ def get_private_recipes():
 
         print(recipes)
 
-        return jsonify([recipe.Recipe for recipe in recipes]), HTTPStatus.OK
+        return jsonify(recipes.items), HTTPStatus.OK
 
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
