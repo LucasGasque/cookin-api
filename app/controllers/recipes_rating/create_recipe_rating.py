@@ -8,7 +8,6 @@ from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
 
-from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
 from app.schemas.recipes_rating.create_recipe_rating_schema import RecipeRateSchema
 
@@ -39,7 +38,7 @@ def create_recipe_rating(recipe_id: str):
 
         session: Session = db.session
         session.add(recipe_rated)
-        db.session.commit()
+        session.commit()
 
         return "", HTTPStatus.NO_CONTENT
 
