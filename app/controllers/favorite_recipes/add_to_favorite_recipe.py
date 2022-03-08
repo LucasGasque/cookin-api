@@ -1,8 +1,7 @@
 from http import HTTPStatus
 
 from app.configs.database import db
-from app.schemas.favorite_recipes.add_to_favorte_recipe_schema import \
-    AddToFavoriteRecipeSchema
+from app.schemas.favorite_recipes import AddToFavoriteRecipeSchema
 from flask import jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow.exceptions import ValidationError
