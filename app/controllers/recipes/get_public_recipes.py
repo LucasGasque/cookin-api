@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from flask import jsonify, request
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 
 from marshmallow import ValidationError
 from sqlalchemy.orm.exc import NoResultFound
@@ -14,6 +14,7 @@ def get_public_recipes():
         page = request.args.get("page", 1, type=int)
         per_page = request.args.get("per_page", 10, type=int)
 
+        title = request.args.get("title", None, type=str)
         category = request.args.get("category", None, type=str)
         preparation_time = request.args.get("preparation_time", None, type=int)
         difficulty = request.args.get("difficulty", None, type=str)
@@ -21,6 +22,7 @@ def get_public_recipes():
 
         data = {}
 
+        data["title"] = title
         data["page"] = page
         data["per_page"] = per_page
         data["category"] = category
@@ -29,24 +31,24 @@ def get_public_recipes():
         data["portion_size"] = portion_size
 
         GetPublicRecipesSchema().load(data)
-        not_null_filters = [Recipe.public is True]
+        not_null_filters = [Recipe.public == True]
+
+        if title:
+            not_null_filters.append(Recipe.title == title)
 
         if category:
-            not_null_filters.append(Recipe.category is category)
+            not_null_filters.append(Recipe.category == category)
 
         if preparation_time:
             not_null_filters.append(Recipe.preparation_time <= preparation_time)
 
         if difficulty:
-            not_null_filters.append(Recipe.difficulty is difficulty)
+            not_null_filters.append(Recipe.difficulty == difficulty)
 
         if portion_size:
             not_null_filters.append(Recipe.portion_size <= portion_size)
-
-        if len(not_null_filters) > 0:
-            recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(page, per_page)
-
-        recipes = Recipe.query.filter(Recipe.public == True).paginate(page, per_page)
+    
+        recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(page, per_page)
 
         if not recipes:
             raise NoResultFound
