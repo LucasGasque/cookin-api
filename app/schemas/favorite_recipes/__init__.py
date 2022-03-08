@@ -1,1 +1,3 @@
 from .get_favorite_recipes_schema import GetFavoriteRecipesSchema
+from .add_to_favorite_recipe_schema import AddToFavoriteRecipeSchema
+from .delete_from_favorite_recipe_schema import DeleteFromFavoritesRecipeSchema
