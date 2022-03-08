@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from pytest import Session
-from sqlalchemy.exc import IntegrityError, DataError
+from sqlalchemy.exc import DataError
 from sqlalchemy.orm import Session
 from app.configs.database import db
 
@@ -46,6 +46,3 @@ def update_recipes_rating(recipe_id):
 
     except ValidationError as e:
         return {"Error": e.args}, HTTPStatus.BAD_REQUEST
-
-    # except IntegrityError:
-    #     return {"Error": "You already rated this recipe"}, HTTPStatus.BAD_REQUEST
