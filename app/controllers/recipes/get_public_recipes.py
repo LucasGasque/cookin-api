@@ -14,6 +14,7 @@ def get_public_recipes():
         page = request.args.get("page", 1, type=int)
         per_page = request.args.get("per_page", 10, type=int)
 
+        title = request.args.get("title", None, type=str)
         category = request.args.get("category", None, type=str)
         preparation_time = request.args.get("preparation_time", None, type=int)
         difficulty = request.args.get("difficulty", None, type=str)
@@ -21,6 +22,7 @@ def get_public_recipes():
 
         data = {}
 
+        data["title"] = title
         data["page"] = page
         data["per_page"] = per_page
         data["category"] = category
@@ -30,6 +32,9 @@ def get_public_recipes():
 
         GetPublicRecipesSchema().load(data)
         not_null_filters = [Recipe.public == True]
+
+        if title:
+            not_null_filters.append(Recipe.title == title)
 
         if category:
             not_null_filters.append(Recipe.category == category)
