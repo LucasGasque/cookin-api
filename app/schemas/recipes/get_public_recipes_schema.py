@@ -4,6 +4,7 @@ from marshmallow import Schema, fields, validate
 class GetPublicRecipesSchema(Schema):
     page = fields.Integer(required=True)
     per_page = fields.Integer(required=True)
+    title = fields.String(allow_none=True)
     category = fields.String(
         allow_none=True, validate=validate.OneOf(["Doce", "Salgado", "Bebida"])
     )
