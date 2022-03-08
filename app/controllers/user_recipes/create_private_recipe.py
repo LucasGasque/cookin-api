@@ -8,7 +8,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from app.models.users_model import User
 from app.models.recipes_model import Recipe
 
-from app.schemas.recipes.create_recipe_schema import RecipeSchema
+from app.schemas.user_recipes.create_recipe_schema import RecipeSchema
 from app.services.create_private_recipe_services import verify_values
 
 
