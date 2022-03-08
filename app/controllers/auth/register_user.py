@@ -6,7 +6,7 @@ from sqlalchemy.orm.session import Session
 
 from app.models.auth_model import Auth
 from app.schemas.auth.register_user_schema import RegisterUserSchema
-from app.schemas.user.user_schema import UserSchema
+from app.schemas.auth.register_user_in_user_table_schema import UserSchema
 from app.configs.database import db
 
 
@@ -20,8 +20,6 @@ def register_user():
         profile_photo = data.pop("profile_photo", None)
 
         new_user_auth_table = RegisterUserSchema().load(data)
-
-        print(data)
 
         session: Session = db.session
         session.add(new_user_auth_table)

@@ -3,9 +3,9 @@ from marshmallow import Schema, fields, validate
 
 class UpdateUserSchema(Schema):
     auth_id = fields.UUID(required=True)
-    name = fields.String(required=True)
+    name = fields.String(allow_none=True)
     gender = fields.String(
-        required=True,
+        allow_none=True,
         validate=validate.OneOf(
             [
                 "Feminino",
