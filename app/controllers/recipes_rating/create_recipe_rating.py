@@ -15,10 +15,16 @@ from app.schemas.recipes_rating.create_recipe_rating_schema import RecipeRateSch
 @jwt_required()
 def create_recipe_rating(recipe_id: str):
 
-
     try:
         user_authorized = get_jwt_identity()
         auth_id = user_authorized["id"]
+
+        data = request.get_json()
+
+        data["user_id"] = auth_id
+        data["recipe_id"] = recipe_id
+
+        recipe_rated = RecipeRateSchema().load(data)
 
         owner_of_searched_recipe = UserPrivateRecipe.query.filter_by(
             recipe_id=recipe_id, user_id=auth_id
@@ -28,13 +34,6 @@ def create_recipe_rating(recipe_id: str):
             return {
                 "Error": "you are not allowed to rate your own recipe"
             }, HTTPStatus.BAD_REQUEST
-
-        data = request.get_json()
-
-        data["user_id"] = auth_id
-        data["recipe_id"] = recipe_id
-
-        recipe_rated = RecipeRateSchema().load(data)
 
         session: Session = db.session
         session.add(recipe_rated)

@@ -19,6 +19,13 @@ def update_recipes_rating(recipe_id):
         user_authorized = get_jwt_identity()
         auth_id = user_authorized["id"]
 
+        data = request.get_json()
+
+        data["user_id"] = auth_id
+        data["recipe_id"] = recipe_id
+
+        RecipeRateSchema().load(data)
+
         owner_of_searched_recipe = UserPrivateRecipe.query.filter_by(
             recipe_id=recipe_id, user_id=auth_id
         ).one_or_none()
@@ -28,15 +35,7 @@ def update_recipes_rating(recipe_id):
                 "Error": "you are not allowed to rate your own recipe"
             }, HTTPStatus.BAD_REQUEST
 
-        data = request.get_json()
-
-        data["user_id"] = auth_id
-        data["recipe_id"] = recipe_id
-
-        RecipeRateSchema().load(data)
-
         session: Session = db.session
-
         session.commit()
 
         return "", HTTPStatus.NO_CONTENT
