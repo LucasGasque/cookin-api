@@ -1,0 +1,1 @@
+from .get_favorite_recipes_schema import GetFavoriteRecipesSchema
