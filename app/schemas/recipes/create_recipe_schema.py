@@ -20,7 +20,7 @@ class RecipeSchema(Schema):
     updated_at = fields.DateTime(format="%d/%m/%Y %H:%M:%S")
     author = fields.String() 
 
-    
+
     @pre_load
     def normalize_title(self, data, **kwargs):
         title = data.get('title')
