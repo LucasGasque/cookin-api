@@ -9,12 +9,15 @@ from app.models.users_model import User
 from app.models.recipes_model import Recipe
 
 from app.schemas.recipes.create_recipe_schema import RecipeSchema
+from app.services.create_private_recipe_services import verify_values
 
 
 @jwt_required()
 def create_private_recipe():
     try:
         data = request.get_json()
+
+        verify_values(data)
         
         user_id = get_jwt_identity()['id']
         
