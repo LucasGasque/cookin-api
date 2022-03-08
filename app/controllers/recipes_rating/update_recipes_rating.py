@@ -33,7 +33,7 @@ def update_recipes_rating(recipe_id):
         if owner_of_searched_recipe:
             return {
                 "Error": "you are not allowed to rate your own recipe"
-            }, HTTPStatus.BAD_REQUEST
+            }, HTTPStatus.UNAUTHORIZED
 
         session: Session = db.session
         session.commit()
