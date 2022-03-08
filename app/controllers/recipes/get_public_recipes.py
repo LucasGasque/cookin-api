@@ -32,23 +32,21 @@ def get_public_recipes():
         not_null_filters = [Recipe.public is True]
 
         if category:
-            not_null_filters.append(Recipe.category is category.title())
+            not_null_filters.append(Recipe.category is category)
 
         if preparation_time:
             not_null_filters.append(Recipe.preparation_time <= preparation_time)
 
         if difficulty:
-            not_null_filters.append(Recipe.difficulty is difficulty.title())
+            not_null_filters.append(Recipe.difficulty is difficulty)
 
         if portion_size:
             not_null_filters.append(Recipe.portion_size <= portion_size)
 
         if len(not_null_filters) > 0:
-            recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(
-                page, per_page
-            )
+            recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(page, per_page)
 
-        recipes = Recipe.query.paginate(page, per_page)
+        recipes = Recipe.query.filter(Recipe.public == True).paginate(page, per_page)
 
         if not recipes:
             raise NoResultFound
