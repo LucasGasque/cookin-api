@@ -15,6 +15,6 @@ def get_users():
     user = session.query(User).all()
 
     if not user:
-        return {"msg": "No users found"}, HTTPStatus.NOT_FOUND
+        return {"Error": "No users found"}, HTTPStatus.NOT_FOUND
 
     return jsonify({"Users": user}), HTTPStatus.OK
