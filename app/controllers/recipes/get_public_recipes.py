@@ -15,7 +15,7 @@ def get_public_recipes():
         per_page = request.args.get("per_page", 10, type=int)
 
         category = request.args.get("category", None, type=str)
-        preparation_time = request.args.get("preparation_time", None, type=str)
+        preparation_time = request.args.get("preparation_time", None, type=int)
         difficulty = request.args.get("difficulty", None, type=str)
         portion_size = request.args.get("portion_size", None, type=int)
 
@@ -44,14 +44,11 @@ def get_public_recipes():
             not_null_filters.append(Recipe.portion_size <= portion_size)
 
         if len(not_null_filters) > 0:
-            recipes = Recipe.query.filter(Recipe.public == True).filter(and_(*not_null_filters)).paginate(
+            recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(
                 page, per_page
             )
 
-        recipes = Recipe.query.filter(Recipe.public == True).paginate(page, per_page)
-
-        for data in recipes.items:
-            data.preparation_time = str(data.preparation_time)
+        recipes = Recipe.query.paginate(page, per_page)
 
         if not recipes:
             raise NoResultFound
