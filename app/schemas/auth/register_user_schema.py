@@ -1,8 +1,8 @@
-from marshmallow import Schema, ValidationError, fields, post_load, pre_load, validates
+from marshmallow import Schema, ValidationError, fields, post_load, validates
 from app.models.auth_model import Auth
 
 
-class AuthSchema(Schema):
+class RegisterUserSchema(Schema):
     email = fields.Email(required=True)
     password = fields.String(required=True)
 

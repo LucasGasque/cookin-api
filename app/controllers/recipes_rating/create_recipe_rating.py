@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from pytest import Session
-from sqlalchemy.exc import DataError
+from sqlalchemy.exc import IntegrityError, DataError
 from sqlalchemy.orm import Session
 from app.configs.database import db
 
@@ -13,7 +13,7 @@ from app.schemas.recipes_rating.create_recipe_rating_schema import RecipeRateSch
 
 
 @jwt_required()
-def update_recipes_rating(recipe_id):
+def create_recipe_rating(recipe_id: str):
 
     try:
         user_authorized = get_jwt_identity()
@@ -24,7 +24,7 @@ def update_recipes_rating(recipe_id):
         data["user_id"] = auth_id
         data["recipe_id"] = recipe_id
 
-        RecipeRateSchema().load(data)
+        recipe_rated = RecipeRateSchema().load(data)
 
         owner_of_searched_recipe = UserPrivateRecipe.query.filter_by(
             recipe_id=recipe_id, user_id=auth_id
@@ -36,6 +36,7 @@ def update_recipes_rating(recipe_id):
             }, HTTPStatus.UNAUTHORIZED
 
         session: Session = db.session
+        session.add(recipe_rated)
         session.commit()
 
         return "", HTTPStatus.NO_CONTENT
@@ -45,3 +46,6 @@ def update_recipes_rating(recipe_id):
 
     except ValidationError as e:
         return {"Error": e.args}, HTTPStatus.BAD_REQUEST
+
+    except IntegrityError:
+        return {"Error": "You already rated this recipe"}, HTTPStatus.BAD_REQUEST

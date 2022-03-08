@@ -1,2 +1,5 @@
-from .auth_schema import AuthSchema
+from .register_user_schema import RegisterUserSchema
 from .login_user_schema import LoginUserSchema
+from .delete_user_schema import DeleteUserSchema
+from .update_user_schema import UpdateUserSchema
+from .register_user_in_user_table_schema import UserSchema

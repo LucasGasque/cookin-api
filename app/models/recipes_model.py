@@ -40,10 +40,11 @@ class Recipe(db.Model):
         ENUM("Fácil", "Intermediário", "Difícil", name="Difficulty"), nullable=False
     )
     portion_size = Column(Integer, nullable=False)
-    image_url = Column(String, default='https://i.ibb.co/1Rwkzqz/Mc-LGrrxni.jpg')
+    image_url = Column(String, default="https://i.ibb.co/1Rwkzqz/Mc-LGrrxni.jpg")
     author = Column(String(100))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
-    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)   
-    
+    rating = relationship(
+        "User", secondary="recipes_rating", backref="recipes", uselist=True
+    )
