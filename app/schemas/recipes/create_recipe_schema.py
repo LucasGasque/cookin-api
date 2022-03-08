@@ -16,8 +16,8 @@ class RecipeSchema(Schema):
     public = fields.Boolean()
     preparation_time = fields.Integer()
     difficulty = fields.String(required=True)
-    created_at = fields.DateTime(format="%d/%m/%Y %H:%M:%S")
-    updated_at = fields.DateTime(format="%d/%m/%Y %H:%M:%S")
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
     author = fields.String() 
 
     
