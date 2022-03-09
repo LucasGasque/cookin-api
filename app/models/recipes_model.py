@@ -49,5 +49,5 @@ class Recipe(db.Model):
     )
     
     author = relationship(
-        "User", secondary="user_private_recipes", backref="recipes", uselist=False
+        "User", secondary="user_private_recipes", backref="recipe", uselist=False
     )
