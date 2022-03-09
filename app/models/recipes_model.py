@@ -24,6 +24,7 @@ class Recipe(db.Model):
     author: str
     created_at: str
     updated_at: str
+    rating: list
 
     __tablename__ = "recipes"
 
