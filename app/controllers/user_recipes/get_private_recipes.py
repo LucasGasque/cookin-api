@@ -1,7 +1,6 @@
 from http import HTTPStatus
 from flask import jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from sqlalchemy.orm.exc import NoResultFound
 from marshmallow import ValidationError
@@ -9,7 +8,6 @@ from marshmallow import ValidationError
 from app.models.user_private_recipes_model import UserPrivateRecipe
 from app.models.recipes_model import Recipe
 from app.schemas.user_recipes import GetPrivateRecipesSchema
-from app.configs.database import db
 
 
 @jwt_required()
@@ -21,7 +19,7 @@ def get_private_recipes():
         title = request.args.get("title", None, type=str)
         category = request.args.get("category", None, type=str)
         preparation_time = request.args.get("preparation_time", None, type=int)
-        difficulty = request.args.get("category", None, type=str)
+        difficulty = request.args.get("difficulty", None, type=str)
         portion_size = request.args.get("portion_size", None, type=int)
 
         user = get_jwt_identity()
@@ -42,16 +40,16 @@ def get_private_recipes():
         not_null_filters = []
 
         if title:
-            not_null_filters.append(Recipe.title == title)
+            not_null_filters.append(Recipe.title.like(f"%{title}%"))
 
         if category:
-            not_null_filters.append(Recipe.category == category.title())
+            not_null_filters.append(Recipe.category == category)
 
         if preparation_time:
             not_null_filters.append(Recipe.preparation_time <= preparation_time)
 
         if difficulty:
-            not_null_filters.append(Recipe.difficulty == difficulty.title())
+            not_null_filters.append(Recipe.difficulty == difficulty)
 
         if portion_size:
             not_null_filters.append(Recipe.portion_size <= portion_size)
@@ -64,7 +62,7 @@ def get_private_recipes():
             .paginate(page, per_page)
         )
 
-        if not recipes:
+        if not recipes.items:
             raise NoResultFound
 
         return jsonify(recipes.items), HTTPStatus.OK
