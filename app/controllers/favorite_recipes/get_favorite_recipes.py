@@ -50,7 +50,7 @@ def get_favorite_recipes():
             for item in favorite_recipes_list
             if item.public == True or item.id in recipes_ids_owned_by_logged_user
         ]
-        
+
         if not favorite_recipes_and_public_list:
             raise NoResultFound
 
