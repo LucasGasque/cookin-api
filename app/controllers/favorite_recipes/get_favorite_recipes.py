@@ -10,6 +10,7 @@ from app.models.favorite_recipes_model import FavoriteRecipe
 from app.models.recipes_model import Recipe
 from app.models.user_private_recipes_model import UserPrivateRecipe
 from app.schemas.favorite_recipes import GetFavoriteRecipesSchema
+from sqlalchemy.orm.exc import NoResultFound
 
 
 @jwt_required()
@@ -49,8 +50,13 @@ def get_favorite_recipes():
             for item in favorite_recipes_list
             if item.public == True or item.id in recipes_ids_owned_by_logged_user
         ]
+        
+        if not favorite_recipes_and_public_list:
+            raise NoResultFound
 
         return jsonify(favorite_recipes_and_public_list), HTTPStatus.OK
 
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST
+    except NoResultFound:
+        return {"Error": "No favorite recipes found"}, HTTPStatus.NOT_FOUND
