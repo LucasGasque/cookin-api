@@ -22,12 +22,9 @@ def create_private_recipe():
         verify_values(data)
         
         user_id = get_jwt_identity()['id']
-        
-        user: User = User.query.get(user_id)
 
         data['created_at'] = str(dt.now())
         data['updated_at'] = str(dt.now())
-        data['author'] = user.name
         
         recipe = RecipeSchema().load(data)
 
@@ -44,5 +41,5 @@ def create_private_recipe():
     except ValidationError as error:
         return jsonify({"Error": error.args}), HTTPStatus.BAD_REQUEST
 
-    except AttributeError as e:
-        return jsonify({"Error": e.args[0]}), HTTPStatus.CONFLICT 
+    except AttributeError as error:
+        return jsonify({"Error": error.args[0]}), HTTPStatus.CONFLICT
