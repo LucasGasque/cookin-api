@@ -15,12 +15,12 @@ from app.schemas.favorite_recipes import GetFavoriteRecipesSchema
 @jwt_required()
 def get_favorite_recipes():
     try:
-        session: Session = db.session
         user = get_jwt_identity()
         auth_id = user["id"]
 
         GetFavoriteRecipesSchema().load({"auth_id": auth_id})
 
+        session: Session = db.session
         recipes_list = session.query(FavoriteRecipe).filter_by(user_id=auth_id).all()
 
         #lista de todas as ids favoritadas pelo usuário:
