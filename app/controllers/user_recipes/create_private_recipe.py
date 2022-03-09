@@ -42,7 +42,7 @@ def create_private_recipe():
         return jsonify(recipe), HTTPStatus.CREATED
 
     except ValidationError as error:
-        return {"Error": error.args}, HTTPStatus.BAD_REQUEST
+        return jsonify({"Error": error.args}), HTTPStatus.BAD_REQUEST
 
     except AttributeError as e:
         return jsonify({"Error": e.args[0]}), HTTPStatus.CONFLICT 
