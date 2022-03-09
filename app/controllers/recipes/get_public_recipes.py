@@ -34,7 +34,7 @@ def get_public_recipes():
         not_null_filters = [Recipe.public == True]
 
         if title:
-            not_null_filters.append(Recipe.title == title)
+            not_null_filters.append(Recipe.title.like(f"%{title}%"))
 
         if category:
             not_null_filters.append(Recipe.category == category)
@@ -47,12 +47,12 @@ def get_public_recipes():
 
         if portion_size:
             not_null_filters.append(Recipe.portion_size <= portion_size)
-    
+
         recipes = Recipe.query.filter(and_(*not_null_filters)).paginate(page, per_page)
 
-        if not recipes:
+        if not recipes.items:
             raise NoResultFound
-       
+
         return jsonify(recipes.items), HTTPStatus.OK
 
     except ValidationError as error:
