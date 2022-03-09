@@ -67,8 +67,6 @@ def get_private_recipes():
         if not recipes:
             raise NoResultFound
 
-        print(recipes)
-
         return jsonify(recipes.items), HTTPStatus.OK
 
     except ValidationError as error:
