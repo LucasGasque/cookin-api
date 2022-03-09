@@ -48,7 +48,3 @@ class Recipe(db.Model):
     rating = relationship(
         "User", secondary="recipes_rating", backref="recipes", uselist=True
     )
-
-    user_private_recipe = db.relationship(
-        "UserPrivateRecipe", backref="user_private_recipe", uselist=False, cascade="all,delete-orphan"
-    )

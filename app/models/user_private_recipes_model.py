@@ -19,7 +19,3 @@ class UserPrivateRecipe(db.Model):
         primary_key=True,
         nullable=False,
     )
-
-    owner_id_to_favorites = db.relationship(
-        "Recipe", backref="owner_to_favorites", uselist=False, cascade="all,delete"
-    )
