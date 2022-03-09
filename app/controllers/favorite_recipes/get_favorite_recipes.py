@@ -28,11 +28,6 @@ def get_favorite_recipes():
             session.query(Recipe).filter(Recipe.id.in_(recipes_ids_list)).all()
         )
 
-        # a = favorites_list[0].owner_to_favorites
-        # print(type(a[0].user_id))
-        # print(type(auth_id))
-        # # print(favorites_list[0].owner_to_favorites.user_id == auth_id)
-
         favorites_public_list = [item for item in favorites_list if item.public == True or str(item.owner_to_favorites[0].user_id) == auth_id]
 
         return jsonify(favorites_public_list), HTTPStatus.OK
