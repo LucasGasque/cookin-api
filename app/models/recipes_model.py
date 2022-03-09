@@ -24,6 +24,7 @@ class Recipe(db.Model):
     author: str
     created_at: str
     updated_at: str
+    rating: list
 
     __tablename__ = "recipes"
 
@@ -40,8 +41,7 @@ class Recipe(db.Model):
         ENUM("Fácil", "Intermediário", "Difícil", name="Difficulty"), nullable=False
     )
     portion_size = Column(Integer, nullable=False)
-    image_url = Column(String, default="https://i.ibb.co/1Rwkzqz/Mc-LGrrxni.jpg")
-    author = Column(String(100))
+    image_url = Column(String, default="https://i.ibb.co/1Rwkzqz/Mc-LGrrxni.jpg")    
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
