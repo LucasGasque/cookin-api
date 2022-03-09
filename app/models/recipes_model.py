@@ -48,3 +48,7 @@ class Recipe(db.Model):
     rating = relationship(
         "User", secondary="recipes_rating", backref="recipes", uselist=True
     )
+
+    author = relationship(
+        "User", secondary="user_private_recipes", backref="recipe", uselist=False
+    )
