@@ -3,7 +3,6 @@ from http import HTTPStatus
 from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
-from pytest import Session
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from werkzeug.exceptions import NotFound
