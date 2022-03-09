@@ -7,7 +7,6 @@ from marshmallow import ValidationError
 from flask import current_app, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
-from app.models.users_model import User
 from app.models.user_private_recipes_model import UserPrivateRecipe
 
 from app.schemas.user_recipes.create_recipe_schema import RecipeSchema
