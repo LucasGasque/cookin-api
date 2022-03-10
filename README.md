@@ -1,4 +1,4 @@
-<h1 align="center"><a href="#" alt="cookin">Cookin' 🧑‍🍳📓💟</a></h1>
+<h1 align="center"><a href="#" alt="cookin">Cookin'</a> 🧑‍🍳📓💟</h1>
 
 <h2>Contents</h2>
 
