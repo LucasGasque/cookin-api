@@ -27,7 +27,7 @@ class RecipeSchema(Schema):
         instructions = data.get("instructions")
  
         data["title"] = title.title().strip()
-        data["ingredients"] = [ingredient.strip() for ingredient in ingredients]
-        data["instructions"] = [(instruction[0].upper() + instruction[1:]).strip() for instruction in instructions]
+        data["ingredients"] = [ingredient.capitalize().strip() for ingredient in ingredients]
+        data["instructions"] = [instruction.capitalize().strip() for instruction in instructions]
 
         return Recipe(**data)
