@@ -1,15 +1,14 @@
-# Cookin' 🧑‍🍳📓💟
+<h1 align="center"><a href="#" alt="cookin">Cookin' 🧑‍🍳📓💟</a></h1>
 
 <h2>Contents</h2>
 
-- [Cookin' 🧑‍🍳📓💟](#cookin-)
-  - [1. About 💻](#1-about-)
-  - [2. Application's links 🔗](#2-applications-links-)
-  - [3. General Functionalities ⚙️](#3-general-functionalities-️)
-  - [4. Technologies 🧰](#4-technologies-)
-    - [4.1 Requisites ☑️](#41-requisites-️)
-  - [5. Developers' Team 🧑‍💻](#5-developers-team-)
-  - [6. Terms of Use 📜](#6-terms-of-use-)
+- [1. About 💻](#1-about-)
+- [2. Application's links 🔗](#2-applications-links-)
+- [3. General Functionalities ⚙️](#3-general-functionalities-️)
+- [4. Technologies 🧰](#4-technologies-)
+  - [4.1 Requisites ☑️](#41-requisites-️)
+- [5. Developers' Team 🧑‍💻](#5-developers-team-)
+- [6. Terms of Use 📜](#6-terms-of-use-)
 
 <a name="about"></a>
 
