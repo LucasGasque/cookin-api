@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, post_load, pre_load, validate
+from marshmallow import Schema, fields, post_load, validate
 
 from app.models.recipes_model import Recipe
 
@@ -21,14 +21,14 @@ class RecipeSchema(Schema):
     updated_at = fields.DateTime()
     author = fields.String()
 
-    @pre_load
-    def normalize_title(self, data, **kwargs):
-        title = data.get("title")
-        if not title:
-            raise KeyError
-        data["title"] = title.title()
-        return data
-
     @post_load
     def create_recipe(self, data, **kwargs):
+        title = data.get("title")
+        ingredients = data.get("ingredients")
+        instructions = data.get("instructions")
+ 
+        data["title"] = title.title().strip()
+        data["ingredients"] = [ingredient.title().strip() for ingredient in ingredients]
+        data["instructions"] = [instruction.title().strip() for instruction in instructions]
+
         return Recipe(**data)
