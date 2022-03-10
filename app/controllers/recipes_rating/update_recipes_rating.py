@@ -10,6 +10,7 @@ from marshmallow import ValidationError
 
 from app.models.user_private_recipes_model import UserPrivateRecipe
 from app.schemas.recipes_rating.create_recipe_rating_schema import RecipeRateSchema
+from app.models.recipes_rating_model import RecipesRating
 
 
 @jwt_required()
@@ -35,7 +36,15 @@ def update_recipes_rating(recipe_id):
                 "Error": "you are not allowed to rate your own recipe"
             }, HTTPStatus.UNAUTHORIZED
 
+        rating = RecipesRating.query.filter_by(user_id=auth_id, recipe_id=recipe_id).one_or_none()
+
+        if not rating:
+            return {"Error":"this recipe is not rated yet"}, HTTPStatus.BAD_REQUEST
+
+        setattr(rating, "rating", data.get('rating'))
+
         session: Session = db.session
+        session.add(rating)
         session.commit()
 
         return "", HTTPStatus.NO_CONTENT
