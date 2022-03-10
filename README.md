@@ -8,6 +8,7 @@
   - [3. General Functionalities ⚙️](#3-general-functionalities-️)
   - [4. Technologies 🧰](#4-technologies-)
     - [4.1 Requisites ☑️](#41-requisites-️)
+  - [7. Team developers](#7-team-developers)
 
 <a name="about"></a>
 
@@ -45,7 +46,7 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
   - [x] rate shared recipes from Cookin' community;
   - [x] filter recipes by title, category, difficulty, preparation time and portion size;
 
-<a name="solucao"></a>
+<a name="technologies"></a>
 
 ## 4. Technologies 🧰
 
@@ -58,7 +59,7 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
 - <a name="flask-m" href="https://flask-migrate.readthedocs.io/en/latest/" target="_blank">Flask Migrate</a>
 - <a name="marshmallow" href="https://marshmallow.readthedocs.io/en/stable/index.html" target="_blank">Marshmallow</a>
 
-<a name="techs"></a>
+<a name="requisites"></a>
 
 ### 4.1 Requisites ☑️
 
@@ -66,4 +67,16 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
 - Package manager <a name="pip" href="https://pip.pypa.io/en/stable/" target="_blank">PIP</a>;
 - PostgreSQL database;
 
-<a name="devs"></a>
+<a name="teamdev"></a>
+
+## 7. Team developers
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/emilyregolao" title="GitHub"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/85745693?v=4" alt="avatar" width="100px;" alt=""/><br /><sub><b>Emily Regolão</b></sub></a><br /><a href="https://www.linkedin.com/in/emilypregolao/" title="Linkedin"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white"></a></td>
+    <td align="center"><a href="https://github.com/larissakoliveira" title="GitHub"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/82476805?v=4" width="100px;" alt=""/><br /><sub><b>Larissa Oliveira</b></sub></a><br /><a href="https://www.linkedin.com/in/larissakoliveira/" title="Linkedin"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white"></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/lucasgasque/" title="GitHub"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/75370906?v=4" width="100px;" alt=""/><br /><sub><b>Lucas Gasque</b></sub></a><br /><a href="https://www.linkedin.com/in/lucasgasque/" title="Linkedin"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white"></a></td>
+    <td align="center"><a href="https://github.com/raissalst" title="GitHub"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/85745938?v=4" width="100px;" alt=""/><br /><sub><b>Raissa Toledo</b></sub></a><br /><a href="https://www.linkedin.com/in/raissalstoledo/" title="Linkedin"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white"></a></td>
+    <td align="center"><a href="https://github.com/rbressanelli" title="GitHub"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/79763201?s=96&v=4" alt="avatar" width="100px;" alt=""/><br /><sub><b>Roberto Bressanelli</b></sub></a><br /><a href="https://www.linkedin.com/in/robertobressanelli/" title="Linkedin"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white"></a></td>
+  </tr>
+</table>
