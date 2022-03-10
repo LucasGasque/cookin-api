@@ -18,14 +18,14 @@ def create_private_recipe():
     try:
         data = request.get_json()
         
-        verify_values(data)
-        
         user_id = get_jwt_identity()['id']
 
         data['created_at'] = str(dt.now())
         data['updated_at'] = str(dt.now())
         
         recipe = RecipeSchema().load(data)
+
+        verify_values(recipe.__dict__)
 
         current_app.db.session.add(recipe)
         current_app.db.session.commit()

@@ -29,6 +29,22 @@ class RecipeSchema(Schema):
         data["title"] = title.title()
         return data
 
+    @pre_load
+    def normalize_ingredients(self, data, **kwargs):
+        ingredients = data.get("ingredients")
+        data["ingredients"] = [ingredient.title().strip() for ingredient in ingredients]
+        if not ingredients:
+            raise KeyError
+        return data
+
+    @pre_load
+    def normalize_instructions(self, data, **kwargs):
+        instructions = data.get("instructions")
+        data["instructions"] = [instruction.title().strip() for instruction in instructions]
+        if not instructions:
+            raise KeyError
+        return data
+
     @post_load
     def create_recipe(self, data, **kwargs):
         return Recipe(**data)
