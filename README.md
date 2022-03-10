@@ -8,7 +8,7 @@
   - [3. General Functionalities ⚙️](#3-general-functionalities-️)
   - [4. Technologies 🧰](#4-technologies-)
     - [4.1 Requisites ☑️](#41-requisites-️)
-  - [7. Developer Team 🧑‍💻](#7-developer-team-)
+  - [5. Developer Team 🧑‍💻](#5-developer-team-)
 
 <a name="about"></a>
 
@@ -69,7 +69,7 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
 
 <a name="teamdev"></a>
 
-## 7. Developer Team 🧑‍💻
+## 5. Developer Team 🧑‍💻
 
 <table>
   <tr>
