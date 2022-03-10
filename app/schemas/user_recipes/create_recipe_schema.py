@@ -37,6 +37,14 @@ class RecipeSchema(Schema):
             raise KeyError
         return data
 
+    @pre_load
+    def normalize_instructions(self, data, **kwargs):
+        instructions = data.get("instructions")
+        data["instructions"] = [instruction.title().strip() for instruction in instructions]
+        if not instructions:
+            raise KeyError
+        return data
+
     @post_load
     def create_recipe(self, data, **kwargs):
         return Recipe(**data)
