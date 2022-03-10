@@ -47,7 +47,7 @@ class Recipe(db.Model):
 
 
     ratings = relationship(
-        "RecipesRating", backref="recipes", uselist=False
+        "RecipesRating", backref="recipes", uselist=True
     )
 
     author = relationship(
