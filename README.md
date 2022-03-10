@@ -4,7 +4,7 @@
 
 - [Cookin' 🧑‍🍳📓💟](#cookin-)
   - [1. About 💻](#1-about-)
-  - [2. Application links 🔗](#2-application-links-)
+  - [2. Application's links 🔗](#2-applications-links-)
   - [3. General Functionalities ⚙️](#3-general-functionalities-️)
   - [4. Technologies 🧰](#4-technologies-)
     - [4.1 Requisites ☑️](#41-requisites-️)
@@ -29,10 +29,10 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
 
 <a name="links"></a>
 
-## 2. Application links 🔗
+## 2. Application's links 🔗
 
 - <a name="API documentation" href="https://documenter.getpostman.com/view/19787362/UVksLDvG" target="_blank">API Documentation</a>
-- <a name="API deploy in Heroku" href="https://dashboard.heroku.com/apps/cookin-api-capstone" target="_blank">API Deploy in Heroku</a>
+- <a name="API deploy in Heroku" href="https://cookin-api-capstone.herokuapp.com/" target="_blank">API Deploy in Heroku</a>
 
 ## 3. General Functionalities ⚙️
 
