@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 from app.configs.database import db
 
@@ -24,7 +24,7 @@ class Recipe(db.Model):
     author: str
     created_at: str
     updated_at: str
-    rating: list
+    ratings: list
 
     __tablename__ = "recipes"
 
@@ -45,10 +45,12 @@ class Recipe(db.Model):
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
-    rating = relationship(
-        "User", secondary="recipes_rating", backref="recipes", uselist=True
+    ratings = relationship(
+        "RecipesRating", backref="recipes", uselist=False
     )
 
     author = relationship(
-        "User", secondary="user_private_recipes", backref="recipe", uselist=False
+        "User", secondary="user_private_recipes", backref=backref("recipe", uselist=False)
     )
+
+    

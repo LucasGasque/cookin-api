@@ -53,7 +53,15 @@ def get_public_recipes():
         if not recipes.items:
             raise NoResultFound
 
-        return jsonify(recipes.items), HTTPStatus.OK
+        result = []
+
+        for recipe in recipes.items:
+            new_rating = [rating.rating for rating in recipe.ratings]
+            recipe.ratings = new_rating
+            result.append(recipe)
+
+
+        return jsonify(result), HTTPStatus.OK
 
     except ValidationError as error:
         return {"Error": error.args}, HTTPStatus.BAD_REQUEST

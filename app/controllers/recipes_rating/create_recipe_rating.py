@@ -28,8 +28,6 @@ def create_recipe_rating(recipe_id: str):
 
         recipe_rated = RecipeRateSchema().load(data)
 
-        filtered_recipe = Recipe.query.get_or_404(recipe_id)
-
         owner_of_searched_recipe = UserPrivateRecipe.query.filter_by(
             recipe_id=recipe_id, user_id=auth_id
         ).one_or_none()
@@ -38,6 +36,7 @@ def create_recipe_rating(recipe_id: str):
             return {
                 "Error": "You are not allowed to rate your own recipe"
             }, HTTPStatus.UNAUTHORIZED
+           
 
         session: Session = db.session
         session.add(recipe_rated)

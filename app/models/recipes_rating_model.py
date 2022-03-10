@@ -6,9 +6,9 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, ForeignKey, Integer
 
 
-@dataclass
+# @dataclass
 class RecipesRating(db.Model):
-    rating: int
+    # rating: int
 
     __tablename__ = "recipes_rating"
 
@@ -16,3 +16,6 @@ class RecipesRating(db.Model):
 
     user_id = Column(UUID(as_uuid=True), ForeignKey('users.auth_id', ondelete="CASCADE"), primary_key=True, nullable=False)
     recipe_id = Column(UUID(as_uuid=True), ForeignKey('recipes.id', ondelete="CASCADE"), primary_key=True, nullable=False)
+    
+    def __repr__(self):
+        return str(self.rating)

@@ -65,6 +65,20 @@ def get_private_recipes():
         if not recipes.items:
             raise NoResultFound
 
+        # result = []
+        print(recipes.items)
+
+        # for recipe in recipes.items:
+        #     if type(recipe.ratings) is list:
+        #         new_rating = [rating.rating for rating in recipe.ratings]
+        #         recipe.ratings = new_rating
+        #         result.append(recipe)
+
+        #     else:
+        #         new_rating = recipes.ratings.values()
+        #         recipe.ratings = new_rating
+        #         result.append(recipe)
+
         return jsonify(recipes.items), HTTPStatus.OK
 
     except ValidationError as error:
