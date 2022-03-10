@@ -2,7 +2,6 @@ from marshmallow import Schema, fields, post_load, validate
 
 from app.models.recipes_model import Recipe
 
-
 class RecipeSchema(Schema):
     title = fields.String(required=True)
     image_url = fields.Url()
@@ -28,7 +27,7 @@ class RecipeSchema(Schema):
         instructions = data.get("instructions")
  
         data["title"] = title.title().strip()
-        data["ingredients"] = [ingredient.title().strip() for ingredient in ingredients]
-        data["instructions"] = [instruction.title().strip() for instruction in instructions]
+        data["ingredients"] = [ingredient.capitalize().strip() for ingredient in ingredients]
+        data["instructions"] = [instruction.capitalize().strip() for instruction in instructions]
 
         return Recipe(**data)
