@@ -4,11 +4,13 @@ from sqlalchemy import and_
 
 from marshmallow import ValidationError
 from sqlalchemy.orm.exc import NoResultFound
+from flask_jwt_extended import jwt_required
 
 from app.models.recipes_model import Recipe
 from app.schemas.recipes import GetPublicRecipesSchema
 
 
+@jwt_required()
 def get_public_recipes():
     try:
         page = request.args.get("page", 1, type=int)
