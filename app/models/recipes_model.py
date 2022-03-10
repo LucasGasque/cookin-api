@@ -1,13 +1,11 @@
 from dataclasses import dataclass
 from uuid import uuid4
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Time
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
 from sqlalchemy.dialects.postgresql import ARRAY, ENUM, UUID
-from sqlalchemy.orm import validates, relationship
+from sqlalchemy.orm import relationship
 
 from app.configs.database import db
-from app.exc.category_error import CategoryError
-from app.exc.difficulty_error import DifficultyError
 
 
 @dataclass
@@ -19,13 +17,14 @@ class Recipe(db.Model):
     ingredients: list
     instructions: list
     public: bool
-    preparation_time: str
+    preparation_time: int
     difficulty: str
-    portion_size: str
+    portion_size: int
     image_url: str
     author: str
     created_at: str
     updated_at: str
+    rating: list
 
     __tablename__ = "recipes"
 
@@ -37,50 +36,19 @@ class Recipe(db.Model):
     ingredients = Column(ARRAY(String), nullable=False)
     instructions = Column(ARRAY(String), nullable=False)
     public = Column(Boolean, default=False)
-    preparation_time = Column(Time, nullable=False)
+    preparation_time = Column(Integer, nullable=False)
     difficulty = Column(
         ENUM("Fácil", "Intermediário", "Difícil", name="Difficulty"), nullable=False
     )
     portion_size = Column(Integer, nullable=False)
-    image_url = Column(String)
-    author = Column(String(100))
+    image_url = Column(String, default="https://i.ibb.co/1Rwkzqz/Mc-LGrrxni.jpg")    
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
-    rating = relationship('User', secondary='recipes_rating', backref='recipes', uselist=True)
-    
-    @validates('category')
-    def validate_category(self, key, value):
-        if value.lower() not in ["doce", "salgado", "bebida"]:
-            raise CategoryError(description={
-                "error": "Category should be 'Doce', 'Salgado' or 'Bebida'."
-            })
-        
-        return value.title()
-    
-    
-    @validates('difficulty')
-    def validate_difficulty(self, key, value):
-        if value.lower() not in ["fácil", "intermediário", "difícil"]:
-            raise DifficultyError(description={
-                "error": "Difficulty should be 'Fácil', 'Intermediário' or 'Difícil'."
-            })
-        
-        return value.title()
-    
-    
-    @validates('title', 'image_url')
-    def validate_value_type(self, key, value):
-        if type(value) != str:
-            raise TypeError('title and image_url should be string type')
-        
-        return value
-    
-    
-    @validates('portion_size')
-    def validate_portion_type(self, key, value):
-        if type(value) != int:
-            raise TypeError('portion_size must be int type') 
-        
-        return value 
-  
+    rating = relationship(
+        "User", secondary="recipes_rating", backref="recipes", uselist=True
+    )
+
+    author = relationship(
+        "User", secondary="user_private_recipes", backref="recipe", uselist=False
+    )
