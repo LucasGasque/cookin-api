@@ -9,6 +9,7 @@
   - [4. Technologies 🧰](#4-technologies-)
     - [4.1 Requisites ☑️](#41-requisites-️)
   - [5. Developers' Team 🧑‍💻](#5-developers-team-)
+  - [6. Terms of Use 📜](#6-terms-of-use-)
 
 <a name="about"></a>
 
@@ -80,3 +81,11 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
     <td align="center"><a href="https://github.com/rbressanelli" title="GitHub"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/79763201?s=96&v=4" alt="avatar" width="100px;" alt=""/><br /><sub><b>Roberto Bressanelli</b></sub></a><br /><a href="https://www.linkedin.com/in/robertobressanelli/" title="Linkedin"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white"></a></td>
   </tr>
 </table>
+
+<a name="terms"></a>
+
+## 6. Terms of Use 📜
+
+This is an Open Source project for educational and non-commercial purposes.
+
+**License type**: <a name="gpl" href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPL</a>
