@@ -23,9 +23,9 @@ This API was developed in order to storage the recipes' data as well as the regi
 
 All routes require Bearer token authentication (except register and login). Access token can be obtained in login successful response.
 
-This API contains 6 routes and 18 endpoints. For more detailed information about the endpoints, please consult API Documentation in Application links section.
+This API contains 6 routes and 18 endpoints. For more detailed information about the API and its endpoints, please consult API Documentation in Application links section.
 
-🎓 Project developed as Capstone of Q3 back end module of the Fullstack Developer Course developed by [Kenzie Academy Brasil](https://kenzie.com.br/v2/).
+🎓 Project developed as Capstone of Q3 back end module of the Fullstack Developer Course of [Kenzie Academy Brasil](https://kenzie.com.br/v2/).
 
 <a name="links"></a>
 
