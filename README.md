@@ -8,8 +8,6 @@
   - [3. General Functionalities ⚙️](#3-general-functionalities-️)
   - [4. Technologies 🧰](#4-technologies-)
     - [4.1 Requisites ☑️](#41-requisites-️)
-  - [7. Deselvolvedores](#7-deselvolvedores)
-  - [8. Termos de uso](#8-termos-de-uso)
 
 <a name="about"></a>
 
@@ -69,17 +67,3 @@ This API contains 6 routes and 18 endpoints. For more detailed information about
 - PostgreSQL database;
 
 <a name="devs"></a>
-
-## 7. Deselvolvedores
-
-- <a name="alex" href="https://www.linkedin.com/in/alesilva-dev/" target="_blank">Alexander Silva</a>
-- <a name="eduardo" href="https://www.linkedin.com/in/eduardoparraga/" target="_blank">Eduardo Parraga</a>
-- <a name="felipe" href="https://www.linkedin.com/in/felipe-silva-98ads/" target="_blank">Felipe Silva</a>
-- <a name="fernando" href="https://www.linkedin.com/in/nandorodrigo/" target="_blank">Fernando Rodrigo</a>
-- <a name="lucas" href="https://www.linkedin.com/in/lucas-bravo-rozado-a80b36213/" target="_blank">Lucas Bravo</a>
-
-<a name="termos"></a>
-
-## 8. Termos de uso
-
-Este é um projeto Open Source para fins educacionais e não comerciais, **Tipo de licença** - <a name="mit" href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
