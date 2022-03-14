@@ -37,7 +37,7 @@ def update_user():
 
         session.commit()
 
-        return "", HTTPStatus.OK
+        return "", HTTPStatus.NO_CONTENT
 
     except NoResultFound:
         return {"Error": "User not found"}

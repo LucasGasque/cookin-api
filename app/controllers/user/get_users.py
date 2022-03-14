@@ -13,9 +13,8 @@ from app.schemas.user.get_users_schema import UserGetSchema
 
 @jwt_required()
 def get_users():
-
     try:
-            
+
         authorized_user = get_jwt_identity()
         auth_id = authorized_user["id"]
 
@@ -30,7 +29,7 @@ def get_users():
         return jsonify({"Users": user}), HTTPStatus.OK
 
     except ValidationError as error:
-        return {"Error":error.args}, HTTPStatus.BAD_REQUEST
+        return {"Error": error.args}, HTTPStatus.BAD_REQUEST
 
     except NoResultFound:
         return {"Error": "No users found"}, HTTPStatus.NOT_FOUND

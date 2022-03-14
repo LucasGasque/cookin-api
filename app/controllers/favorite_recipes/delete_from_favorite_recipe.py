@@ -1,7 +1,9 @@
 from http import HTTPStatus
 
 from app.configs.database import db
-from app.schemas.favorite_recipes.delete_from_favorite_recipe_schema import DeleteFromFavoritesRecipeSchema
+from app.schemas.favorite_recipes.delete_from_favorite_recipe_schema import (
+    DeleteFromFavoritesRecipeSchema,
+)
 from flask import jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow.exceptions import ValidationError
@@ -19,18 +21,20 @@ def delete_favorite_recipe(recipe_id):
         data = {"user_id": user_id, "recipe_id": recipe_id}
         DeleteFromFavoritesRecipeSchema().load(data)
 
-        recipe_to_delete = FavoriteRecipe.query.filter_by(user_id=user_id, recipe_id=recipe_id).first()
-        
+        recipe_to_delete = FavoriteRecipe.query.filter_by(
+            user_id=user_id, recipe_id=recipe_id
+        ).first()
+
         if not recipe_to_delete:
             raise NotFound
 
         session.delete(recipe_to_delete)
         session.commit()
 
-        return '', HTTPStatus.NO_CONTENT
+        return "", HTTPStatus.NO_CONTENT
 
-    except NotFound:        
-            return jsonify({"Error": "Recipe not in favorites"}), HTTPStatus.NOT_FOUND            
+    except NotFound:
+        return jsonify({"Error": "Recipe not in favorites"}), HTTPStatus.NOT_FOUND
 
     except ValidationError as error:
-        return jsonify({"Error": error.args}), HTTPStatus.BAD_REQUEST    
+        return jsonify({"Error": error.args}), HTTPStatus.BAD_REQUEST

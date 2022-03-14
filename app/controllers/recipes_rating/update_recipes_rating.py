@@ -36,12 +36,14 @@ def update_recipes_rating(recipe_id):
                 "Error": "you are not allowed to rate your own recipe"
             }, HTTPStatus.UNAUTHORIZED
 
-        rating = RecipesRating.query.filter_by(user_id=auth_id, recipe_id=recipe_id).one_or_none()
+        rating = RecipesRating.query.filter_by(
+            user_id=auth_id, recipe_id=recipe_id
+        ).one_or_none()
 
         if not rating:
-            return {"Error":"this recipe is not rated yet"}, HTTPStatus.BAD_REQUEST
+            return {"Error": "this recipe is not rated yet"}, HTTPStatus.BAD_REQUEST
 
-        setattr(rating, "rating", data.get('rating'))
+        setattr(rating, "rating", data.get("rating"))
 
         session: Session = db.session
         session.add(rating)

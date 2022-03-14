@@ -17,12 +17,12 @@ from app.services.create_private_recipe_services import verify_values
 def create_private_recipe():
     try:
         data = request.get_json()
-        
-        user_id = get_jwt_identity()['id']
 
-        data['created_at'] = str(dt.now())
-        data['updated_at'] = str(dt.now())
-        
+        user_id = get_jwt_identity()["id"]
+
+        data["created_at"] = str(dt.now())
+        data["updated_at"] = str(dt.now())
+
         recipe = RecipeSchema().load(data)
 
         verify_values(recipe.__dict__)
@@ -30,11 +30,13 @@ def create_private_recipe():
         current_app.db.session.add(recipe)
         current_app.db.session.commit()
 
-        user_private_recipe = UserPrivateRecipe(**dict(user_id=user_id, recipe_id=recipe.id))
+        user_private_recipe = UserPrivateRecipe(
+            **dict(user_id=user_id, recipe_id=recipe.id)
+        )
 
         current_app.db.session.add(user_private_recipe)
         current_app.db.session.commit()
-   
+
         return jsonify(recipe), HTTPStatus.CREATED
 
     except ValidationError as error:
